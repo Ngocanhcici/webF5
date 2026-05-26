@@ -1,227 +1,1057 @@
 <!DOCTYPE html>
-<html lang="vi-VN">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kiến thức Hormone - F5 Hormone | Ngọc Anh Coach</title>
-  <meta name="description" content="Các bài viết chuyên sâu về hormone, chu kỳ kinh nguyệt, dinh dưỡng và lối sống giúp phụ nữ Việt sống khỏe từ bên trong."/>
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <title>F5 Hormone | Cân Bằng Nội Tiết Tự Nhiên</title>
+  <meta name="description" content="Hành trình tối ưu hóa hormone và phục hồi năng lượng gốc dành cho phụ nữ hiện đại. Tự xây dựng hệ thống sức khỏe cá nhân bền vững."/>
+  
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="../conan-style.css">
+  
+  <!-- Custom Conan School style -->
+  <link rel="stylesheet" href="conan-style.css">
+  
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('ldgTGiBtr5ZWVLEIO');
+    window.EMAILJS_SERVICE_ID = 'service_u8oh9bo';
+    window.EMAILJS_TEMPLATE_ID = 'template_vzagfpy';
+  </script>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar scrolled">
-    <div class="container nav-inner">
-      <a href="../index.html" class="logo">F5 <em>Hormone</em></a>
-      <div class="nav-links">
-        <a href="../index.html#about">Phương pháp</a>
-        <a href="../index.html#story">Câu chuyện</a>
-        <a href="../index.html#philosophy">Triết lý</a>
-        <a href="../index.html#levels">Lộ trình</a>
-        <a href="index.html" class="active">Kiến thức</a>
-        <a href="../index.html#programs">Chương trình</a>
-        <a href="../index.html#reviews">Đánh giá</a>
-        <a href="../index.html#faq">Hỏi đáp</a>
-        <a href="../index.html#quiz" class="btn-nav">Làm Hormone Quiz →</a>
+  <!-- ==========================================
+       WELCOME FLOW CONTAINER (Screen 0 & 1)
+       ========================================== -->
+  <div id="welcome-container">
+    <div id="welcome-flow">
+      <div class="container">
+        
+        <!-- Screen 0: Welcome Screen -->
+        <section id="screen-0" class="screen active" style="padding: 0;">
+          <div class="welcome-card text-center">
+            <h1 class="welcome-heading">Xin chào, bạn đã sẵn sàng để bắt đầu <span class="text-accent">F5 Hormone</span> của mình chưa?</h1>
+            
+            <div class="welcome-house-container">
+              <img src="house-watercolor.png" alt="Watercolor terracotta house">
+            </div>
+            
+            <div class="welcome-cta" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <button class="btn-pill" onclick="goToScreen(1)">F5 Hormone</button>
+              <p class="welcome-sub">bấm vào đây</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Screen 1: Pain Description Screen -->
+        <section id="screen-1" class="screen" style="padding: 0;">
+          <div class="pain-card text-center">
+            <h2 class="section-title">Chào mừng bạn đã đến với <br><span class="text-accent">F5 Hormone</span></h2>
+            
+            <div class="pain-quote text-center">
+              <p>“Sao dạo này mình dễ cáu, dễ mệt, dễ khóc vậy?”</p>
+              <p>Cảm giác như cơ thể mình nhạy cảm, đang có vấn đề nhưng không ai tìm ra.</p>
+            </div>
+            
+            <div class="pain-resolve">
+              Cơ thể bạn chỉ đang gửi tín hiệu mà xét nghiệm thông thường không đọc được. Cảm giác đó có tên gọi, và có lý do rõ ràng.
+            </div>
+            
+            <button class="btn-primary" onclick="enterMainSite()">
+              Bước vào hành trình <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </section>
+        
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- HERO -->
-  <header class="blog-hero">
-    <div class="container">
-      <span class="section-label">Kiến thức</span>
-      <h1>Những điều cơ thể muốn<br>bạn biết - nhưng chưa có ai nói</h1>
-      <p>Không phải thông tin chung chung. Là những gì thật sự giúp bạn hiểu chính mình.</p>
-    </div>
-  </header>
+  <!-- ==========================================
+       MAIN CONTENT CONTAINER (Initially Hidden)
+       ========================================== -->
+  <div id="main-content" style="display: none;">
+    
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="container nav-inner">
+        <a href="#" class="logo">F5 <em>Hormone</em></a>
+        <div class="nav-links" id="navLinks">
+          <a href="#about">Phương pháp</a>
+          <a href="#story">Câu chuyện</a>
+          <a href="#philosophy">Triết lý</a>
+          <a href="#levels">Lộ trình</a>
+          <a href="kien-thuc/index.html">Kiến thức</a>
+          <a href="#programs">Chương trình</a>
+          <a href="#reviews">Đánh giá</a>
+          <a href="#faq">Hỏi đáp</a>
+          <a href="#quiz" class="btn-nav" onclick="openQuizModal(); return false;">Làm Hormone Quiz →</a>
+        </div>
+      </div>
+    </nav>
 
-  <!-- BLOG MAIN -->
-  <main class="blog-main">
-    <div class="container">
-      <div class="blog-layout">
-        <!-- LEFT: POSTS -->
-        <div>
-          <!-- FILTER TABS -->
-          <div class="filter-tabs" id="filterTabs">
-            <button class="filter-tab active" data-cat="">Tất cả</button>
-            <button class="filter-tab" data-cat="nutrition">Dinh dưỡng & TPCN</button>
-            <button class="filter-tab" data-cat="hormone">Nội tiết & Hormone</button>
-            <button class="filter-tab" data-cat="sleep">Giấc ngủ</button>
-            <button class="filter-tab" data-cat="cycle">Chu kỳ</button>
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="container hero-inner">
+        <span class="section-label">Tự chủ sức khoẻ</span>
+        <h1><strong>F5 Hormone</strong> giúp bạn hiểu ngôn ngữ của cơ thể.</h1>
+        <p class="section-sub">Tôi không bị bệnh, nhưng cũng không khoẻ: chu kỳ rối loạn, cáu gắt vô cớ, mệt mỏi quanh năm. F5 Hormone giúp bạn đọc những tín hiệu mà xét nghiệm thông thường không đọc được bằng lộ trình rõ ràng.</p>
+        <div class="hero-ctas">
+          <button class="btn-primary" onclick="openQuizModal()">
+            Làm Hormone Quiz ngay — 3 phút <i class="fas fa-arrow-right"></i>
+          </button>
+          <a href="#levels" class="btn-ghost">Khám phá lộ trình <i class="fas fa-chevron-down"></i></a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Live Event Card Section -->
+    <section class="live-event-sec" style="padding-top: 0; padding-bottom: 3.5rem;">
+      <div class="container">
+        <div class="live-event">
+          <div class="live-content">
+            <span class="live-badge">
+              <span class="live-dot-pulse"></span> Workshop RESET - ONLINE
+            </span>
+            <h3>Workshop R.E.S.E.T: Nghệ thuật cân bằng Hormone</h3>
+            <p>Sự kiện trực tuyến đặc biệt giúp bạn bóc tách 3 tầng cơ thể, thấu hiểu tiếng nói sinh lý học và xác định đúng hướng đi phục hồi sức khỏe.</p>
           </div>
+          <a href="Salepage/salepage.html" class="btn-primary" style="text-decoration: none;">Đăng ký nhận vé ưu tiên</a>
+        </div>
+      </div>
+    </section>
 
-          <!-- POSTS LIST -->
-          <div class="posts-grid" id="postsGrid">
-            <!-- Loaded by JS -->
+    <!-- Interactive Expander -->
+    <section class="struggle-section" id="about" style="background-color: var(--bg-secondary);">
+      <div class="container text-center">
+        <div class="struggle-expander">
+          <div class="expander-header">
+            <span class="section-label">Phương pháp nhận thức gốc rễ</span>
+            <h3>Bạn đã từng thử bao nhiêu cách để tìm lại trạng thái rạng rỡ, năng lượng và thu hút?</h3>
+            <button class="expander-trigger" id="expanderBtn" onclick="toggleExpander()">
+              Đọc tiếp vấn đề của bạn <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+          
+          <div class="expander-content" id="expanderContent">
+            <div class="contrast-grid">
+              
+              <!-- Misconception Column -->
+              <div class="contrast-col misconception">
+                <h4>Niềm tin cũ</h4>
+                <div class="contrast-list">
+                  <div class="contrast-item">
+                    <p>1. Sai đâu sửa đấy, đau đâu cắt đấy.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>2. Ăn đầy đủ 4 nhóm chất tinh bột, chất béo, rau củ quả, đạm ngày qua ngày theo thực đơn có sẵn lành mạnh là được rồi.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>3. Vận động đều đặn, đốt kcal đều đều vào mỗi 5h sáng hàng ngày.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>4. Cố gắng làm việc rồi thỉnh thoảng đi chữa lành chill chill cho đỡ stress. Hoặc nghỉ ngơi bằng cách lướt facebook điện thoại chat với bạn bè.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>5. Đặt liệu trình uống đồ detox 5 ngày/tháng.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Reality Column -->
+              <div class="contrast-col reality">
+                <h4>Framework F5 Hormone</h4>
+                <div class="contrast-list">
+                  <div class="contrast-item">
+                    <p>1. Mọi thứ trong cơ thể là một thể thống nhất. Ví dụ: đau bụng trước kỳ kinh có thể do đường ruột, hoặc gan đang có vấn đề.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>2. Dinh dưỡng theo chu kỳ bổ sung chất dinh dưỡng theo đúng thời điểm nuôi dưỡng cơ thể.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>3. Điều chỉnh nhịp sinh học và chuyển động thông minh: Hạ cortisol ban đêm thông qua giấc ngủ phục hồi và vận động phù hợp với từng pha của chu kỳ.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>4. Quản lý stress chủ động, nghỉ ngơi thực tế để hệ thần kinh được phục hồi tự nhiên.</p>
+                  </div>
+                  <div class="contrast-item">
+                    <p>5. Thải độc và chuyển hoá tự nhiên, hỗ trợ cơ thể hàng ngày thay vì lạm dụng các liệu trình detox ngắn hạn.</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PERSONAL STORY SECTION
+         ========================================== -->
+    <section class="story-section" id="story">
+      <div class="container">
+        <div class="story-grid">
+          
+          <!-- Left Column: Story Content -->
+          <div class="story-text">
+            <span class="section-label">Câu chuyện của mình</span>
+            <h2>Hành trình thấu hiểu và lắng nghe cơ thể</h2>
+            
+            <p class="lead">
+              Trong suốt quá trình lớn lên, mình từng nhiều lần ngất giữa đường vì đau bụng kinh, lên bàn mổ hai lần vì u tuyến vú, rồi cắt một phần ba lá gan trái chỉ hơn hai tháng sau khi sinh con đầu lòng. Cộng thêm dị ứng nặng, huyết áp, tim mạch.
+            </p>
+            
+            <p>
+              Mình không hiểu nổi tại sao những chuyện đó cứ xảy ra với một người đã cố gắng sống lành mạnh như mình.
+            </p>
+
+            <button class="expander-trigger story-trigger" id="storyBtn" onclick="toggleStory()" style="margin-top: 1rem; margin-bottom: 2rem;">
+              Đọc tiếp câu chuyện của mình <i class="fas fa-chevron-down"></i>
+            </button>
+            
+            <div class="story-expander-content" id="storyContent">
+              <p>
+                Mình đã thử tất cả những gì người ta nói là tốt. Ăn chay trường. Cháo yến mạch buổi sáng. Detox theo mùa. Tập Yoga đều đặn. Ăn 100% đồ hữu cơ từ nông trại. Đông y, Tây y, Ayurveda, năng lượng, tử vi, hàng chục chương trình phát triển bản thân.
+              </p>
+              
+              <p>
+                Càng đi nhiều, mình càng thấy mình yếu hơn, thiếu thốn hơn. Vì mình đang chạy theo triệu chứng mà không tìm ra được gốc rễ thực sự.
+              </p>
+              
+              <p>
+                Mình nghĩ vấn đề là mình chưa đủ kỷ luật, chưa đủ tiền để mua loại thực phẩm chức năng xịn hơn, chưa đủ thông tin về phương pháp mới nhất. Nên mình tiếp tục thử. Tiếp tục đầu tư. Tiếp tục kiệt sức.
+              </p>
+              
+              <p>
+                Mình bỏ cuộc. Rồi lại thử. Rồi lại loay hoay.
+              </p>
+              
+              <p>
+                Dù đã chi rất nhiều tiền cho sức khoẻ, dù đã hy sinh rất nhiều thời gian cho việc tự chữa lành, cái cảm giác mệt mỏi và mơ hồ đó vẫn không biến mất. Mãi đến khi mình bắt đầu làm việc với gốc rễ thực sự, với hệ thống đang âm thầm điều khiển toàn bộ cơ thể, mình mới nhận ra điều mà không khoá học sức khoẻ nào từng dạy mình:
+              </p>
+              
+              <div class="story-highlight-box">
+                <p>
+                  Có một thứ đang âm thầm điều khiển tất cả. Làn da, năng lượng, giấc ngủ, tâm trạng, chu kỳ kinh, cân nặng, sức thu hút của bạn. Tất cả đều chạy trên cùng một hệ thống. Đó là hệ thống hormone.
+                </p>
+              </div>
+              
+              <p>
+                Và đây là điều ít ai nói thẳng: Hệ thống hormone không hoạt động độc lập. Nó là phản chiếu của 3 tầng cơ thể vận hành cùng nhau. Chừng nào bạn còn xử lý sai tầng, mọi cố gắng đều là phần ngọn.
+              </p>
+              
+              <p>
+                Khi mình hiểu được hormone đang nói gì với mình, khi mình thay đổi cách sống của mình theo nhịp sinh học thay vì chống lại nó, mọi thứ bắt đầu khác đi theo cách mình không ngờ tới.
+              </p>
+              
+              <p>
+                Da mình sáng lên mà không cần dùng mỹ phẩm đắt tiền. Mụn ít đi mà không cần xử lý vấn đề mụn. Đi qua chu kỳ kinh nhẹ nhàng mà không cần uống thuốc. Sáng dậy nhẹ người mà không cần ngủ nhiều hơn. Dị ứng hết. Huyết áp ổn định. Tim mạch không còn là nỗi lo.
+              </p>
+              
+              <p style="font-weight: 600; color: var(--text-primary); margin-bottom: 2.5rem;">
+                Không dùng thuốc, không dùng thực phẩm chức năng đắt tiền mà là lắng nghe cơ thể và hiểu biết về cơ thể mình.
+              </p>
+              
+              <!-- Certifications Grid -->
+              <div class="certs-container">
+                <h4>Chứng chỉ & Đào tạo chuyên môn</h4>
+                <div class="certs-grid">
+                  
+                  <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div>
+                      <div class="cert-title">IIN Certified Hormone Health Coach</div>
+                      <div class="cert-issuer">Institute for Integrative Nutrition, New York</div>
+                    </div>
+                  </div>
+                  
+                  <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-heartbeat"></i></div>
+                    <div>
+                      <div class="cert-title">Sivananda Yoga</div>
+                      <div class="cert-issuer">Chứng chỉ quốc tế - chuyên ngành trị liệu & phục hồi</div>
+                    </div>
+                  </div>
+                  
+                  <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-users"></i></div>
+                    <div>
+                      <div class="cert-title">442+ phụ nữ đồng hành</div>
+                      <div class="cert-issuer">Trong 7+ năm qua</div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- Right Column: Visual Journey -->
+          <div class="story-gallery">
+            
+            <div class="story-image-card">
+              <div class="story-image-wrapper">
+                <img src="story-after-visual.jpg" alt="Thời kỳ nằm viện chuẩn bị lên bàn mổ">
+              </div>
+              <div class="story-image-caption">
+                Bức ảnh kỷ niệm thời kỳ bệnh tật khi chuẩn bị lên bàn mổ
+              </div>
+            </div>
+            
+            <div class="story-image-card">
+              <div class="story-image-wrapper">
+                <img src="story-after-visual.jpg" alt="Trạng thái phục hồi và rạng rỡ ngày hôm nay">
+              </div>
+              <div class="story-image-caption">
+                Ngọc Anh hiện tại - đồng hành cùng phụ nữ trên hành trình chăm sóc sức khoẻ nội tiết tự nhiên.
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PHILOSOPHY SECTION
+         ========================================== -->
+    <section class="philosophy-section" id="philosophy">
+      <div class="container text-center">
+        <span class="section-label">Triết lý vận hành</span>
+        <h2>Triết lý “Thông tuệ – Dịu dàng”</h2>
+        <p class="section-sub" style="font-weight: 500; font-size: 1.2rem; max-width: 800px; color: var(--text-primary); margin-bottom: 2rem;">
+          Mình tin rằng cơ thể có khả năng tự phục hồi và mọi người đều xứng đáng được chăm sóc toàn diện nếu được hiểu và hỗ trợ đúng cách.
+        </p>
+        
+        <div class="philosophy-grid">
+          
+          <div class="philosophy-col">
+            <div class="philosophy-num">01.</div>
+            <h3>Không dùng thuốc, không ép cơ thể</h3>
+            <p>Cân bằng hormone qua giấc ngủ, cách ăn, và nhịp sinh hoạt. Những thứ cơ thể bạn cần - nhưng chưa biết dùng đúng lúc.</p>
+          </div>
+          
+          <div class="philosophy-col">
+            <div class="philosophy-num">02.</div>
+            <h3>Dựa trên sinh lý học, không phải xu hướng</h3>
+            <p>Mọi gợi ý đều có lý do rõ ràng dựa trên nghiên cứu - không phải vì ai đó trên mạng nói hay.</p>
+          </div>
+          
+          <div class="philosophy-col">
+            <div class="philosophy-num">03.</div>
+            <h3>Bạn là người hiểu cơ thể mình nhất</h3>
+            <p>Mình giúp bạn đọc được tín hiệu cơ thể gửi - để bạn tự biết phải làm gì, không cần chờ ai nói cho.</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="levels" id="levels">
+      <div class="container text-center">
+        <span class="section-label">lộ trình sức khoẻ</span>
+        <h2>Hành trình sức khoẻ của bạn</h2>
+        <p class="section-sub">Đi từ nhận thức tôi cần ai đó nói phải ăn gì, tập gì đến tôi có khả năng quan sát, đọc tín hiệu, tự điều chỉnh và vận hành sức khoẻ phù hợp với chính mình</p>
+        
+      <div class="levels-stack">
+          
+          <div class="level-card">
+            <div class="level-num">Tầng 1</div>
+            <div class="level-info">
+              <h3>Nền tảng kiến thức</h3>
+              <p>Hiểu cơ bản.</p>
+            </div>
+          </div>
+          
+          <div class="level-card">
+            <div class="level-num">Tầng 2</div>
+            <div class="level-info">
+              <h3>Hiểu nguyên nhân</h3>
+              <p>Tư duy nguyên nhân - kết quả.</p>
+            </div>
+          </div>
+          
+          <div class="level-card">
+            <div class="level-num">Tầng 3</div>
+            <div class="level-info">
+              <h3>Thực hành</h3>
+              <p>Va chạm thực tế.</p>
+            </div>
+          </div>
+          
+          <div class="levels-expander-content" id="levelsContent">
+            <div class="level-card">
+              <div class="level-num">Tầng 4</div>
+              <div class="level-info">
+                <h3>Đọc tín hiệu cơ thể</h3>
+                <p>Quan sát và nhân biết.</p>
+              </div>
+            </div>
+            
+            <div class="level-card">
+              <div class="level-num">Tầng 5</div>
+              <div class="level-info">
+                <h3>Đánh giá và tự quyết định</h3>
+                <p>Tư duy độc lập.</p>
+              </div>
+            </div>
+            
+            <div class="level-card level-ultimate">
+              <div class="level-num">Tầng 6</div>
+              <div class="level-info">
+                <h3>Tự chủ sức khoẻ</h3>
+                <p>tạo ra tự do, tự chủ sức khỏe nội tiết thật sự mà không phụ thuộc vào thực phẩm chức năng, thuốc, xu hướng hay bất kỳ ai.</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <button class="expander-trigger" id="levelsBtn" onclick="toggleLevels()" style="margin-top: 2rem;">
+          Đọc tiếp lộ trình <i class="fas fa-chevron-down"></i>
+        </button>
+
+        <!-- Learning Philosophy Call-Out Box -->
+        <div class="philosophy-callout">
+          <div class="callout-header serif-italic" style="margin-bottom: 2rem; font-size: 1.25rem;">
+            "Nếu chỉ dừng lại ở việc hiểu - bạn đang ở nửa dưới của việc học."
+          </div>
+          <div class="callout-points">
+            <div class="callout-point-item">Bạn biết rất nhiều kiến thức về sức khoẻ, nhưng cơ thể vẫn mệt mỏi?</div>
+            <div class="callout-point-item">Bạn hiểu về hormone của cơ thể mình, nhưng lại chưa khoẻ mạnh?</div>
+            <div class="callout-point-item">Vì bạn thực sự chưa bao giờ chạm đến sự tự chủ sức khoẻ - tạo ra tự do, tự chủ sức khỏe nội tiết thật sự mà không phụ thuộc vào thực phẩm chức năng, thuốc, xu hướng hay bất kỳ ai.</div>
+          </div>
+          
+          <div class="callout-highlight-box">
+            <h4>Học thật sự = đạt đến sự tự do</h4>
+            <p>Không phải ghi chép, không phải đống kiến thức lý thuyết mà không sống với lý thuyết đó. Học thật sự phải giúp bạn đạt đến sự tự do.</p>
+          </div>
+          
+          <div class="callout-cta-text">
+            Nếu bạn muốn tự do thật sự <span class="text-accent">→ Đây là nơi dành cho bạn.</span>
           </div>
         </div>
 
-        <!-- RIGHT: SIDEBAR -->
-        <aside class="blog-sidebar">
-          <!-- Search -->
-          <div class="sidebar-widget">
-            <h3>Tìm kiếm</h3>
-            <div class="search-box">
-              <input type="text" id="searchInput" placeholder="Tìm bài viết..." oninput="renderBlog()">
-              <button><i class="fas fa-search"></i></button>
+      </div>
+    </section>
+
+    <!-- Community Gallery -->
+    <section class="gallery-section">
+      <div class="container text-center">
+        <span class="section-label">Đồng hành thực tế</span>
+        <h2>Cộng đồng F5 Hormone</h2>
+        <p class="section-sub">Những buổi workshop, coaching nhóm và chia sẻ hành trình phục hồi sức khỏe.</p>
+        
+        <div class="gallery-slider">
+          <div class="gallery-item">
+            <div class="gallery-img">
+              <img src="story-visual.jpg" alt="Coaching session">
+            </div>
+            <div class="gallery-info">
+              <h4>Hormone Lab 1-1</h4>
+              <p>Chương trình hoàn toàn cá nhân hóa sâu sắc. Thiết kế phác đồ hormone riêng biệt theo cá nhân hoá và xét nghiệm sinh hóa máu chuyên sâu.</p>
+            </div>
+          </div>
+          
+          <div class="gallery-item">
+            <div class="gallery-img">
+              <img src="Visual2.jpg" alt="Workshop">
+            </div>
+            <div class="gallery-info">
+              <h4>F5 Hormone Masterclass</h4>
+              <p>Tại sao hormone giúp phụ nữ trẻ khoẻ đẹp và cách sống khoẻ trẻ đẹp thuận nhịp</p>
+            </div>
+          </div>
+          
+          <div class="gallery-item">
+            <div class="gallery-img">
+              <img src="story-after-visual.jpg" alt="Coaching group">
+            </div>
+            <div class="gallery-info">
+              <h4>Cộng đồng F5 Hormone</h4>
+              <p>Cùng nhau sống khoẻ 1% mỗi ngày, chia sẻ hành trình, động viên và cải thiện lối sống</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evolution Timeline -->
+    <section class="timeline-section" style="padding-bottom: 6.5rem;">
+      <div class="container text-center">
+        <span class="section-label">Cải thiện sức khoẻ</span>
+        <h2>Lộ trình sức khoẻ hormone của bạn</h2>
+        <p class="section-sub">Không có phép màu qua đêm. Chỉ có sự khoẻ dần lên liên tục của cơ thể bạn từ phiên bản V1 đến V100.</p>
+        
+        <div class="timeline-wrap">
+          <div class="timeline-line"></div>
+          <div class="timeline-nodes">
+            
+            <div class="timeline-node active">
+              <div class="node-dot"><i class="fas fa-check" style="font-size: 0.5rem; color: #fff;"></i></div>
+              <div class="node-title">Version 1</div>
+              <div class="node-desc">Mệt mỏi mãn tính, rụng tóc, cáu gắt và chu kỳ rối loạn.</div>
+            </div>
+            
+            <div class="timeline-node active">
+              <div class="node-dot"><i class="fas fa-check" style="font-size: 0.5rem; color: #fff;"></i></div>
+              <div class="node-title">Version 2</div>
+              <div class="node-desc">Làm Hormone Quiz, đọc đúng tín hiệu mất cân bằng của cơ thể.</div>
+            </div>
+            
+            <div class="timeline-node active">
+              <div class="node-dot"><i class="fas fa-check" style="font-size: 0.5rem; color: #fff;"></i></div>
+              <div class="node-title">Version 10</div>
+              <div class="node-desc">Điều chỉnh nhịp sinh học, dinh dưỡng, quản lý stress, vận động, thải độc và chuyển hoá.</div>
+            </div>
+            
+            <div class="timeline-node active">
+              <div class="node-dot"><i class="fas fa-check" style="font-size: 0.5rem; color: #fff;"></i></div>
+              <div class="node-title">Version 100</div>
+              <div class="node-desc">Cơ thể rạng rỡ, tràn đầy năng lượng và tự do tự chủ sức khỏe.</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BLOG SECTION
+         ========================================== -->
+    <section class="blog-section" id="blog" style="background-color: var(--bg-primary);">
+      <div class="container text-center">
+        <span class="section-label">Góc chia sẻ</span>
+        <h2>Kiến thức</h2>
+        <p class="section-sub" style="font-weight: 500; font-size: 1.25rem; max-width: 800px; color: var(--text-primary); margin-bottom: 1rem;">
+          Hiểu cơ thể mình để không phụ thuộc vào bất kỳ điều gì.
+        </p>
+        <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 3.5rem auto; font-size: 1.05rem; line-height: 1.65;">
+          Những bài viết ngắn, rõ ràng. Mỗi bài giải thích một điều cơ thể bạn đang làm - và lý do tại sao.
+        </p>
+        
+        <div class="blog-grid">
+          
+          <!-- Post 1 -->
+          <a href="kien-thuc/posts/khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam.html" class="blog-card-link">
+            <article class="blog-card">
+              <div class="blog-img-wrapper" style="background-color: #E2EAD8; color: #4A6B53;">
+                <span>🧬 Sự thật về GH</span>
+              </div>
+              <div class="blog-card-content">
+                <span class="blog-card-tag">Nội tiết & Hormone</span>
+                <h3>Khi GH không phải là những gói thuốc bổ sung chiều cao của Nhật Bản được xách tay về Việt Nam</h3>
+                <p>Rất nhiều người dùng Việt Nam đang lầm tưởng rằng uống những viên "GH xách tay" là trực tiếp đưa hormone tăng trưởng vào cơ thể. Sự thật sinh học đằng sau chiếc lọ này là gì?</p>
+              </div>
+            </article>
+          </a>
+          
+          <!-- Post 2 -->
+          <a href="kien-thuc/posts/an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet.html" class="blog-card-link">
+            <article class="blog-card">
+              <div class="blog-img-wrapper" style="background-color: #FAF2EC; color: #BF5E3B;">
+                <span>🌸 4 pha chu kỳ</span>
+              </div>
+              <div class="blog-card-content">
+                <span class="blog-card-tag">Chu kỳ kinh nguyệt</span>
+                <h3>Ăn uống và chăm sóc cơ thể đồng điệu cùng 4 pha chu kỳ kinh nguyệt</h3>
+                <p>Hiểu về chu kỳ sinh lý của cơ thể phụ nữ để đa dạng dinh dưỡng và sinh hoạt phù hợp với 4 pha (mùa xuân, hạ, thu, đông) tương ứng với sự biến thiên hormone.</p>
+              </div>
+            </article>
+          </a>
+          
+          <!-- Post 3 -->
+          <a href="kien-thuc/posts/beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc.html" class="blog-card-link">
+            <article class="blog-card">
+              <div class="blog-img-wrapper" style="background-color: #F8F3EC; color: #8A7B66;">
+                <span>📚 Tiêu hóa kiến thức</span>
+              </div>
+              <div class="blog-card-content">
+                <span class="blog-card-tag">Dinh dưỡng & TPCN</span>
+                <h3>Béo phì thông tin nhưng suy dinh dưỡng trí thức</h3>
+                <p>Chúng ta đang sống trong thời đại bùng nổ thông tin nhưng lại thiếu đi sự tiêu hoá thực sự. Hãy cùng khám phá 4 tầng cốt lõi để thực sự thấu hiểu sức khỏe từ gốc rễ.</p>
+              </div>
+            </article>
+          </a>
+          
+        </div>
+
+        <div style="margin-top: 3.5rem;">
+          <a href="kien-thuc/index.html" class="btn-primary" style="text-decoration: none; border-radius: 50px; padding: 0.9rem 2.2rem; display: inline-block;">
+            Xem tất cả bài viết <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audience Filter (For / Not For) -->
+    <section class="audience-section" style="background-color: var(--bg-secondary);">
+      <div class="container text-center">
+        <span class="section-label">Sự lựa chọn</span>
+        <h2>Hành trình này có dành cho bạn?</h2>
+        <p class="section-sub">F5 Hormone tìm kiếm những người phụ nữ sẵn sàng hành động để thay đổi thực tế.</p>
+        
+        <div class="audience-grid">
+          
+          <!-- Dành cho card -->
+          <div class="audience-card for">
+            <h3><i class="fas fa-check-circle" style="color: #2D8C5E;"></i> Dành Cho Bạn</h3>
+            <div class="audience-list">
+              <div class="audience-item">
+                <i class="fas fa-check audience-icon"></i>
+                <span>Phụ nữ tri thức bận rộn muốn hiểu sâu sắc cơ thể từ góc nhìn sinh lý học.</span>
+              </div>
+              <div class="audience-item">
+                <i class="fas fa-check audience-icon"></i>
+                <span>Người sẵn sàng thay đổi nhỏ, liên tục để tự xây hệ thống lối sống lâu dài.</span>
+              </div>
+              <div class="audience-item">
+                <i class="fas fa-check audience-icon"></i>
+                <span>Người không muốn phụ thuộc vào thuốc hay thực phẩm chức năng vô tội vạ.</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Chưa phù hợp card -->
+          <div class="audience-card not-for">
+            <h3><i class="fas fa-times-circle" style="color: #C0392B;"></i> Chưa Phù Hợp</h3>
+            <div class="audience-list">
+              <div class="audience-item">
+                <i class="fas fa-times audience-icon"></i>
+                <span>Người chỉ muốn tìm kiếm một viên thuốc tránh thai khẩn cấp hay giải pháp mì ăn liền.</span>
+              </div>
+              <div class="audience-item">
+                <i class="fas fa-times audience-icon"></i>
+                <span>Người chỉ muốn xem video kiến thức rồi để đó, không thực hành.</span>
+              </div>
+              <div class="audience-item">
+                <i class="fas fa-times audience-icon"></i>
+                <span>Người không chấp nhận việc sửa thói quen và không lắng nghe cơ thể phản hồi.</span>
+              </div>
             </div>
           </div>
 
-          <!-- Quiz CTA -->
-          <div class="widget-cta">
-            <h3>Bạn đang ở đâu?</h3>
-            <p>Làm quiz 3 phút để biết hormone nào đang mất cân bằng.</p>
-            <a href="../index.html#quiz" class="btn-white">Làm Hormone Quiz →</a>
-          </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- Categories -->
-          <div class="sidebar-widget">
-            <h3>Danh mục</h3>
-            <ul class="category-list" id="categoryList"></ul>
+    <!-- Programs Grid Section -->
+    <section class="programs-section" id="programs">
+      <div class="container text-center">
+        <span class="section-label">Các lựa chọn</span>
+        <h2>Các chương trình đồng hành cùng bạn</h2>
+        <p class="section-sub">Chọn điểm bắt đầu phù hợp nhất với bạn hôm nay.</p>
+        
+        <div class="programs-grid">
+          
+          <!-- Program 1 -->
+          <div class="program-card">
+            <div>
+              <span class="program-badge">Điểm khởi đầu</span>
+              <h3>Hormone Masterclass</h3>
+              <p>Hiểu cơ thể mình hơn cả năm tự mò mẫm. Workshop 2 buổi (180 phút) bóc tách cơ chế nội tiết tố và giải mã các trục mất cân bằng chính.</p>
+            </div>
+            <div class="program-meta">
+              <span><i class="far fa-clock"></i> Thời lượng: 180 phút</span>
+              <span><i class="fas fa-wallet"></i> Học phí: 99.000đ</span>
+              <span><i class="far fa-play-circle"></i> Xem lại bất kỳ lúc nào</span>
+            </div>
+            <button class="btn-ghost" onclick="openQuizModal()" style="margin-top: 1.75rem; width: 100%;">Đăng ký khóa học</button>
           </div>
+          
+          <!-- Program 2 -->
+          <div class="program-card" style="border: 2px solid var(--accent-terracotta);">
+            <div>
+              <span class="program-badge" style="background-color: var(--accent-terracotta); color: #fff;">Chương trình cốt lõi</span>
+              <h3>F5 Hormone</h3>
+              <p>Khóa học đồng hành group coaching sâu rộng 90 ngày. Thiết lập lại nhịp sinh học ngủ sâu, ổn định tâm trạng trước kỳ kinh và giúp làn da rạng rỡ trở lại.</p>
+            </div>
+            <div class="program-meta">
+              <span><i class="far fa-calendar-alt"></i> Thời gian: 90 ngày (12 tuần)</span>
+              <span><i class="fas fa-wallet"></i> Học phí: 15.900.000đ</span>
+              <span><i class="fas fa-users"></i> Đồng hành nhóm nhỏ, sát sao</span>
+            </div>
+            <button class="btn-primary" onclick="openQuizModal()" style="margin-top: 1.75rem; width: 100%;">Đăng ký tư vấn miễn phí</button>
+          </div>
+          
+          <!-- Program 3 -->
+          <div class="program-card">
+            <div>
+              <span class="program-badge">Chuyên sâu 1-1</span>
+              <h3>Hormone Lab 1-1</h3>
+              <p>Chương trình hoàn toàn cá nhân hóa sâu sắc. Thiết kế phác đồ hormone riêng biệt theo cơ địa độc nhất và xét nghiệm sinh hóa máu chuyên sâu.</p>
+            </div>
+            <div class="program-meta">
+              <span><i class="far fa-user"></i> Hình thức: 1-1 cùng Ngọc Anh</span>
+              <span><i class="fas fa-wallet"></i> Học phí: Chi phí cá nhân</span>
+              <span><i class="fas fa-stethoscope"></i> Phác đồ chuyên sâu theo xét nghiệm</span>
+            </div>
+            <button class="btn-ghost" onclick="openQuizModal()" style="margin-top: 1.75rem; width: 100%;">Đăng ký tư vấn chuyên sâu</button>
+          </div>
+          
+        </div>
+      </div>
+    </section>
 
-          <!-- Consultation CTA -->
-          <div class="sidebar-widget" style="text-align:center">
-            <h3>Cần tư vấn trực tiếp?</h3>
-            <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.25rem">Đặt lịch gặp Ngọc Anh để được đồng hành cá nhân.</p>
-            <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" class="btn-primary" style="font-size:0.9rem;padding:0.75rem 1.5rem;text-decoration:none;border-radius:50px;display:inline-block;">Đặt lịch Call →</a>
+    <!-- Reviews Section -->
+    <section class="reviews-section" id="reviews" style="background-color: var(--bg-secondary);">
+      <div class="container text-center">
+        <span class="section-label">Đánh giá</span>
+        <h2>Chia sẻ thực tế từ học viên</h2>
+        <p class="section-sub">Những người phụ nữ tự chủ sức khoẻ của mình cùng F5 Hormone</p>
+        
+        <div class="reviews-grid">
+          
+          <!-- Review 1 -->
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <i class="fab fa-facebook review-fb-logo"></i>
+            </div>
+            <p class="review-text">
+              "Mình từng đi khám tổng quát 3 lần, bác sĩ bảo kết quả máu ổn nhưng mình vẫn mệt mỏi rụng tóc. Học F5 Hormone mới nhận ra trục stress cortisol của mình bị quá tải. Sau 2 tháng tinh chỉnh, năng lượng đã hồi phục rõ rệt."
+            </p>
+            <div class="review-author">
+              <strong>Minh Thư</strong> · 32 tuổi · Hà Nội
+            </div>
           </div>
-        </aside>
+          
+          <!-- Review 2 -->
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <i class="fab fa-facebook review-fb-logo"></i>
+            </div>
+            <p class="review-text">
+              "Cực kỳ biết ơn sự tận tâm của Huyền. Mình bị mất ngủ và mụn nang quanh cằm trước kỳ kinh liên tục. Ăn đúng theo pha chu kỳ và seed cycling của F5 Hormone đã cứu rỗi cuộc sống và giấc ngủ của mình."
+            </p>
+            <div class="review-author">
+              <strong>Hải Yến</strong> · 29 tuổi · TP. HCM
+            </div>
+          </div>
+          
+          <!-- Review 3 -->
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <i class="fab fa-facebook review-fb-logo"></i>
+            </div>
+            <p class="review-text">
+              "Kiến thức hệ thống, logic và cực kỳ dễ thực hành. Mình học được cách tự đọc tín hiệu mụn, giấc ngủ của cơ thể mà không còn lo lắng hay mù mờ uống TPCN như trước."
+            </p>
+            <div class="review-author">
+              <strong>Khánh Linh</strong> · 35 tuổi · Úc
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+      <div class="container text-center">
+        <span class="section-label">Giải đáp thắc mắc</span>
+        <h2>Những câu hỏi thường gặp</h2>
+        <p class="section-sub">Nếu bạn vẫn còn băn khoăn, hãy xem qua các giải đáp nhanh dưới đây.</p>
+        
+        <div class="faq-list">
+          <details>
+            <summary>Lộ trình F5 Hormone kéo dài bao lâu để thấy hiệu quả?</summary>
+            <p>90 ngày (tương đương 3 chu kỳ kinh). Cơ thể người phụ nữ cần ít nhất 3 chu kỳ để các thụ thể nội tiết tố thích ứng và ghi nhận hiệu quả ổn định từ việc thay đổi lối sống.</p>
+          </details>
+          <details>
+            <summary>Tôi có phải dùng nhiều thực phẩm chức năng trong lộ trình không?</summary>
+            <p>Không. F5 Hormone tập trung vào điều chỉnh 5 trụ cột tự nhiên: Dinh dưỡng theo pha, Giấc ngủ nhịp sinh học, Quản lý stress, Chuyển động thông minh, Thải độc và chuyển hoá.</p>
+          </details>
+          <details>
+            <summary>Chương trình có phù hợp với người cực kỳ bận rộn?</summary>
+            <p>Hoàn toàn phù hợp. Thiết kế lộ trình chia nhỏ thành các hành động hàng ngày mất chưa đầy 15 phút. Chúng tôi không ép bạn thay đổi toàn bộ cuộc sống qua đêm mà tích lũy thói quen thông minh.</p>
+          </details>
+          <details>
+            <summary>Làm thế nào để đăng ký tham gia hoặc đặt lịch Discovery Call?</summary>
+            <p>Bạn có thể bấm làm bài Hormone Quiz 3 phút. Sau khi hoàn thành và có kết quả sơ bộ về các trục mất cân bằng, hệ thống sẽ gợi ý bạn đăng ký lịchDiscovery Call 1-1 miễn phí với cố vấn.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         NEWSLETTER SECTION
+         ========================================== -->
+    <section class="newsletter-section" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 5.5rem 0;">
+      <div class="container text-center" style="max-width: 850px;">
+        <span class="section-label">Bản tin định kỳ</span>
+        <h2 style="font-size: 2.2rem; margin-bottom: 1rem; font-family: var(--font-serif); line-height: 1.3;">Bạn muốn đọc những bản tin liên quan đến kiến thức hormone?</h2>
+        <p class="serif-italic" style="font-size: 1.35rem; color: var(--accent-terracotta); margin-bottom: 0.75rem; font-weight: 500;">
+          Mỗi tuần một insight hormone
+        </p>
+        <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2.5rem; line-height: 1.6;">
+          Thực tế. Ngắn gọn. Áp dụng được ngay hôm nay.
+        </p>
+        
+        <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+          <input type="email" placeholder="Nhập email của bạn..." required class="newsletter-input">
+          <button type="submit" class="btn-primary newsletter-btn">Xác nhận</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-inner">
+          
+          <div class="footer-brand">
+            <h3>F5<span>Hormone</span></h3>
+            <p>Ngọc Anh - IIN Certified Hormone Health & Yoga Coach - đồng hành cùng phụ nữ tự chủ chăm sóc sức khoẻ nội tiết qua thay đổi lối sống. Không dùng thuốc. Không phụ thuộc.</p>
+            <div class="footer-socials">
+              <a href="https://www.facebook.com/huyentluu311" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="mailto:ngocanhnt.hormone@gmail.com" class="footer-social-link" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          
+          <div class="footer-col">
+            <h4>Điều hướng</h4>
+            <ul>
+              <li><a href="#">Trang chủ</a></li>
+              <li><a href="#about">Phương pháp</a></li>
+              <li><a href="#levels">Lộ trình</a></li>
+              <li><a href="#programs">Chương trình</a></li>
+              <li><a href="#reviews">Đánh giá</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col footer-col-contact">
+            <h4>Liên hệ hỗ trợ</h4>
+            <ul>
+              <li><i class="far fa-envelope"></i> <span>ngocanhnt.hormone@gmail.com</span></li>
+              <li><i class="fab fa-whatsapp"></i> <span>Zalo: 0963289948.</span></li>
+            </ul>
+          </div>
+          
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© 2026 F5 Hormone & Ngọc Anh. Thiết kế bởi Web1trang. All rights reserved.</p>
+          <p>
+            <a href="#" style="margin-right: 1.5rem; opacity: 0.7;">Privacy Policy</a>
+            <a href="#" style="opacity: 0.7;">Terms of Service</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ================================================
+       HORMONE QUIZ MODAL OVERLAY
+       ================================================= -->
+  <div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="Hormone Quiz">
+    <div class="quiz-modal" id="quizModal">
+      <button class="quiz-close" onclick="closeQuizModal()" aria-label="Đóng"><i class="fas fa-times"></i></button>
+
+      <!-- INTRO SCREEN -->
+      <div id="quizIntro" class="quiz-intro-screen">
+        <span class="quiz-intro-icon">🧬</span>
+        <h2>Bản đồ Hormone của bạn</h2>
+        <p>22 câu hỏi · 8 phần · kết quả trực quan theo 5 trục hormone. Ngọc Anh thiết kế để bạn hiểu chính xác cơ thể mình đang ở đâu.</p>
+        <div class="quiz-intro-features">
+          <div class="quiz-intro-feat"><i class="fas fa-clock"></i> Chỉ ~4 phút</div>
+          <div class="quiz-intro-feat"><i class="fas fa-lock"></i> Hoàn toàn bảo mật</div>
+          <div class="quiz-intro-feat"><i class="fas fa-chart-bar"></i> Biểu đồ 5 trục hormone</div>
+          <div class="quiz-intro-feat"><i class="fas fa-bullseye"></i> Kết quả cá nhân hóa</div>
+        </div>
+        <button class="quiz-intro-start-btn" onclick="startQuiz()">Bắt đầu ngay <i class="fas fa-arrow-right"></i></button>
+      </div>
+
+      <!-- QUESTION AREA -->
+      <div id="quizQuestionArea" style="display:none">
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-bar-track">
+            <div class="quiz-progress-bar-fill" id="quizProgressFill" style="width:0%"></div>
+          </div>
+          <div class="quiz-progress-meta">
+            <span id="quizProgressLabel">Câu 1 / 22</span>
+            <span id="quizSectionLabel">Thông tin cơ bản</span>
+          </div>
+        </div>
+        <div class="quiz-question-screen" id="quizQScreen"></div>
+        <div class="quiz-nav">
+          <button class="quiz-btn-next" id="quizNextBtn" onclick="quizNext()" disabled>Tiếp theo <i class="fas fa-arrow-right"></i></button>
+          <button class="quiz-btn-back" id="quizBackBtn" onclick="quizBack()" style="display:none">← Quay lại</button>
+        </div>
+      </div>
+
+      <!-- LEAD CAPTURE SCREEN -->
+      <div id="quizLeadCapture" style="display:none" class="quiz-lead-screen">
+        <div class="lead-header">
+          <span class="lead-icon">📩</span>
+          <h2>Nhận Bản đồ Hormone</h2>
+          <p>Nhập thông tin bên dưới để lưu kết quả phân tích cá nhân của bạn và mở khóa bảng đo lường ngay lập tức.</p>
+        </div>
+        <form id="quizLeadForm" onsubmit="submitQuizLead(event)">
+          <div class="form-group">
+            <label for="quizLeadName">Họ và tên *</label>
+            <input type="text" id="quizLeadName" required placeholder="Ví dụ: Nguyễn Thị Lan">
+          </div>
+          <div class="form-group">
+            <label for="quizLeadEmail">Email nhận kết quả *</label>
+            <input type="email" id="quizLeadEmail" required placeholder="lan.nguyen@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="quizLeadPhone">Số điện thoại / Zalo *</label>
+            <input type="tel" id="quizLeadPhone" required placeholder="Ví dụ: 0912345678">
+          </div>
+          <button type="submit" class="quiz-lead-submit-btn">
+            Xem phân tích của tôi <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- RESULT SCREEN -->
+      <div class="quiz-result-screen" id="quizResultScreen">
+        <div class="result-header">
+          <div id="resultGradeBadge" class="result-grade-badge"></div>
+          <h2 id="resultHeadline"></h2>
+          <p id="resultSubline"></p>
+        </div>
+
+        <!-- Hormone Bars -->
+        <div class="hormone-bars" id="hormoneBars"></div>
+
+        <!-- Dominant issue -->
+        <div class="dominant-card" id="dominantCard">
+          <div class="dominant-card-label">⚡ Ưu tiên số 1 cần chú ý</div>
+          <h3 id="dominantTitle"></h3>
+          <p id="dominantDesc"></p>
+        </div>
+
+        <!-- CTA -->
+        <div class="result-cta-section">
+          <p class="result-cta-eyebrow" id="resultCtaEyebrow"></p>
+          <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" rel="noopener" class="result-cta-btn" id="resultCtaBtn" onclick="closeQuizModal()">
+            <i class="fas fa-calendar-alt"></i> <span id="resultCtaText">Đặt lịch Discovery Call với Ngọc Anh</span>
+          </a>
+          <div class="result-share-row">
+            <button class="result-share-btn" onclick="retakeQuiz()"><i class="fas fa-redo"></i> Làm lại</button>
+            <button class="result-share-btn" onclick="saveResultText()"><i class="fas fa-download"></i> Tải kết quả (.txt)</button>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; padding: 4rem 0; border-bottom: 1px solid var(--border-light); text-align: left;">
-        <div>
-          <a href="../index.html" class="logo" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">F5 <em>Hormone</em></a>
-          <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Học cách thấu hiểu ngôn ngữ sinh học của cơ thể, phục hồi nội tiết tự nhiên và đạt tới sự tự do, tự chủ sức khoẻ thật sự mà không phụ thuộc theo xu hướng hay thực phẩm chức năng.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-primary);">Liên hệ & Đồng hành</h4>
-          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="far fa-envelope" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Email: ngocanhnt.hormone@gmail.com</span>
-          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="fab fa-whatsapp" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Hotline: Zalo 0963289948</span>
-          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Đặt lịch: <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">YouCanBook.me</a></span>
-        </div>
-      </div>
-      <div class="footer-bottom" style="padding: 2rem 0; text-align: center;">
-        <p style="font-size: 0.85rem; color: var(--text-muted);">© 2026 F5 Hormone. All rights reserved.</p>
-        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem; opacity: 0.8; font-size: 0.85rem;">
-          <a href="../index.html" style="color: var(--text-muted); text-decoration: none;">Trang chủ</a>
-          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Kiến thức</a>
-          <a href="../chinh-sach-bao-mat.html" style="color: var(--text-muted); text-decoration: none;">Bảo mật</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
+  <!-- Scripts -->
+  <script src="quiz-modal.js"></script>
   <script>
-    const CATS = { hormone:'Nội tiết & Hormone', nutrition:'Dinh dưỡng & TPCN', sleep:'Giấc ngủ', cycle:'Chu kỳ kinh nguyệt' };
-    const CAT_ICONS = { hormone:'🧬', nutrition:'🥦', sleep:'🌙', cycle:'🌀' };
+    // Screen transition scripts
+    function goToScreen(idx) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const nextScreen = document.getElementById('screen-' + idx);
+      if (nextScreen) nextScreen.classList.add('active');
+    }
 
-    let currentCat = '';
+    function enterMainSite() {
+      const welcomeContainer = document.getElementById('welcome-container');
+      const mainContent = document.getElementById('main-content');
+      
+      if (welcomeContainer) welcomeContainer.style.display = 'none';
+      if (mainContent) mainContent.style.display = 'block';
+    }
 
-    const postsData = [
-      {
-        id: 'beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc',
-        title: 'Béo phì thông tin nhưng suy dinh dưỡng trí thức',
-        excerpt: 'Chúng ta đang béo phì thông tin nhưng suy dinh dưỡng trí thức. Hãy cùng tìm hiểu 4 tầng cốt lõi để thực sự "tiêu hóa" kiến thức và chăm sóc sức khỏe từ gốc rễ.',
-        category: 'nutrition',
-        date: '2026-05-25',
-        url: 'posts/beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc.html'
-      },
-      {
-        id: 'an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet',
-        title: 'Ăn uống và chăm sóc cơ thể đồng điệu cùng 4 pha chu kỳ kinh nguyệt',
-        excerpt: 'Hiểu về chu kỳ sinh lý và cách ăn uống, vận động phù hợp theo 4 pha (mùa đông, xuân, hạ, thu) để sống đồng điệu cùng cơ thể phụ nữ.',
-        category: 'cycle',
-        date: '2026-05-25',
-        url: 'posts/an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet.html'
-      },
-      {
-        id: 'khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam',
-        title: 'Khi GH không phải là những gói thuốc bổ sung chiều cao của Nhật Bản được xách tay về Việt Nam',
-        excerpt: 'Nếu bạn muốn con cao lớn, nhất định đọc bài viết này.',
-        category: 'hormone',
-        date: '2026-05-25',
-        url: 'posts/khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam.html'
+    // Expander Toggler
+    function toggleExpander() {
+      const btn = document.getElementById('expanderBtn');
+      const content = document.getElementById('expanderContent');
+      
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        btn.classList.remove('active');
+        btn.innerHTML = 'Đọc tiếp vấn đề của bạn <i class="fas fa-chevron-down"></i>';
+      } else {
+        content.classList.add('open');
+        btn.classList.add('active');
+        btn.innerHTML = 'Thu gọn nội dung <i class="fas fa-chevron-up"></i>';
       }
-    ];
-
-    function getPosts() {
-      return [...postsData].sort((a, b) => new Date(b.date) - new Date(a.date));
     }
 
-    function renderBlog() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      let posts = getPosts();
-      if (currentCat) posts = posts.filter(p => p.category === currentCat);
-      if (search) posts = posts.filter(p => (p.title||'').toLowerCase().includes(search) || (p.excerpt||'').toLowerCase().includes(search));
-
-      const grid = document.getElementById('postsGrid');
-
-      if (posts.length === 0) {
-        grid.innerHTML = `<div class="posts-empty" style="text-align:center; padding: 4rem 2rem; color: var(--text-muted);"><i class="fas fa-search" style="font-size:3rem; opacity:0.2; margin-bottom:1rem; display:block;"></i><h3>Không tìm thấy bài viết</h3><p>Thử thay đổi từ khóa hoặc danh mục</p></div>`;
-        return;
+    // Story Expander Toggler
+    function toggleStory() {
+      const btn = document.getElementById('storyBtn');
+      const content = document.getElementById('storyContent');
+      
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        btn.classList.remove('active');
+        btn.innerHTML = 'Đọc tiếp câu chuyện của mình <i class="fas fa-chevron-down"></i>';
+        document.getElementById('story').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        content.classList.add('open');
+        btn.classList.add('active');
+        btn.innerHTML = 'Thu gọn câu chuyện <i class="fas fa-chevron-up"></i>';
       }
-
-      grid.innerHTML = posts.map(p => `
-        <article class="post-card">
-          <div class="post-card-img-placeholder">${CAT_ICONS[p.category] || '📝'}</div>
-          <div class="post-card-body">
-            <div class="post-meta">
-              <span class="post-cat">${CATS[p.category] || p.category}</span>
-              <span class="post-date">${formatDate(p.date)}</span>
-            </div>
-            <h2><a href="${p.url}">${p.title}</a></h2>
-            <p class="post-excerpt">${p.excerpt}</p>
-            <a href="${p.url}" class="post-read-more">Đọc bài viết <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </article>
-      `).join('');
     }
 
-    function renderCategories() {
-      const posts = getPosts();
-      const catCounts = {};
-      posts.forEach(p => { catCounts[p.category] = (catCounts[p.category] || 0) + 1; });
-      const list = document.getElementById('categoryList');
-      list.innerHTML = Object.entries(catCounts).map(([cat, count]) => `
-        <li onclick="filterCat('${cat}')">
-          <span style="font-weight:500">${CAT_ICONS[cat]||''} ${CATS[cat]||cat}</span>
-          <span>${count}</span>
-        </li>
-      `).join('');
+    // Levels Expander Toggler
+    function toggleLevels() {
+      const btn = document.getElementById('levelsBtn');
+      const content = document.getElementById('levelsContent');
+      
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        btn.classList.remove('active');
+        btn.innerHTML = 'Đọc tiếp lộ trình <i class="fas fa-chevron-down"></i>';
+        document.getElementById('levels').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        content.classList.add('open');
+        btn.classList.add('active');
+        btn.innerHTML = 'Thu gọn lộ trình <i class="fas fa-chevron-up"></i>';
+      }
     }
 
-    function filterCat(cat) {
-      currentCat = cat;
-      document.querySelectorAll('.filter-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.cat === cat);
-      });
-      renderBlog();
+    // Newsletter Subscription handler
+    function handleSubscribe(event) {
+      event.preventDefault();
+      const input = event.target.querySelector('input');
+      if (input && input.value) {
+        alert(`Cảm ơn bạn đã đăng ký! Bản tin F5 Hormone sẽ được gửi tới email ${input.value} vào mỗi tuần.`);
+        input.value = '';
+      }
     }
 
-    document.getElementById('filterTabs').addEventListener('click', (e) => {
-      const btn = e.target.closest('.filter-tab');
-      if (!btn) return;
-      filterCat(btn.dataset.cat);
+    // Auto-enter main site and open quiz if URL contains relevant hash
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash) {
+        enterMainSite();
+        if (hash === '#quiz') {
+          setTimeout(() => {
+            openQuizModal();
+          }, 200);
+        } else {
+          const targetEl = document.querySelector(hash);
+          if (targetEl) {
+            setTimeout(() => {
+              targetEl.scrollIntoView({ behavior: 'smooth' });
+            }, 200);
+          }
+        }
+      }
     });
-
-    function formatDate(dateStr) {
-      if (!dateStr) return '';
-      return new Date(dateStr).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric' });
-    }
-
-    renderBlog();
-    renderCategories();
   </script>
-
 </body>
 </html>
