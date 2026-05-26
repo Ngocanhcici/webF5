@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiến thức Hormone - F5 Hormone | Ngọc Anh Coach</title>
+  <meta name="description" content="Các bài viết chuyên sâu về hormone, chu kỳ kinh nguyệt, dinh dưỡng và lối sống giúp phụ nữ Việt sống khỏe từ bên trong."/>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../conan-style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar scrolled">
+    <div class="container nav-inner">
+      <a href="../index.html" class="logo">F5 <em>Hormone</em></a>
+      <div class="nav-links">
+        <a href="../index.html#about">Phương pháp</a>
+        <a href="../index.html#story">Câu chuyện</a>
+        <a href="../index.html#philosophy">Triết lý</a>
+        <a href="../index.html#levels">Lộ trình</a>
+        <a href="index.html" class="active">Kiến thức</a>
+        <a href="../index.html#programs">Chương trình</a>
+        <a href="../index.html#reviews">Đánh giá</a>
+        <a href="../index.html#faq">Hỏi đáp</a>
+        <a href="../index.html#quiz" class="btn-nav">Làm Hormone Quiz →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="blog-hero">
+    <div class="container">
+      <span class="section-label">Kiến thức</span>
+      <h1>Những điều cơ thể muốn<br>bạn biết - nhưng chưa có ai nói</h1>
+      <p>Không phải thông tin chung chung. Là những gì thật sự giúp bạn hiểu chính mình.</p>
+    </div>
+  </header>
+
+  <!-- BLOG MAIN -->
+  <main class="blog-main">
+    <div class="container">
+      <div class="blog-layout">
+        <!-- LEFT: POSTS -->
+        <div>
+          <!-- FILTER TABS -->
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-cat="">Tất cả</button>
+            <button class="filter-tab" data-cat="nutrition">Dinh dưỡng & TPCN</button>
+            <button class="filter-tab" data-cat="hormone">Nội tiết & Hormone</button>
+            <button class="filter-tab" data-cat="sleep">Giấc ngủ</button>
+            <button class="filter-tab" data-cat="cycle">Chu kỳ</button>
+          </div>
+
+          <!-- POSTS LIST -->
+          <div class="posts-grid" id="postsGrid">
+            <!-- Loaded by JS -->
+          </div>
+        </div>
+
+        <!-- RIGHT: SIDEBAR -->
+        <aside class="blog-sidebar">
+          <!-- Search -->
+          <div class="sidebar-widget">
+            <h3>Tìm kiếm</h3>
+            <div class="search-box">
+              <input type="text" id="searchInput" placeholder="Tìm bài viết..." oninput="renderBlog()">
+              <button><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+
+          <!-- Quiz CTA -->
+          <div class="widget-cta">
+            <h3>Bạn đang ở đâu?</h3>
+            <p>Làm quiz 3 phút để biết hormone nào đang mất cân bằng.</p>
+            <a href="../index.html#quiz" class="btn-white">Làm Hormone Quiz →</a>
+          </div>
+
+          <!-- Categories -->
+          <div class="sidebar-widget">
+            <h3>Danh mục</h3>
+            <ul class="category-list" id="categoryList"></ul>
+          </div>
+
+          <!-- Consultation CTA -->
+          <div class="sidebar-widget" style="text-align:center">
+            <h3>Cần tư vấn trực tiếp?</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.25rem">Đặt lịch gặp Ngọc Anh để được đồng hành cá nhân.</p>
+            <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" class="btn-primary" style="font-size:0.9rem;padding:0.75rem 1.5rem;text-decoration:none;border-radius:50px;display:inline-block;">Đặt lịch Call →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; padding: 4rem 0; border-bottom: 1px solid var(--border-light); text-align: left;">
+        <div>
+          <a href="../index.html" class="logo" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">F5 <em>Hormone</em></a>
+          <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Học cách thấu hiểu ngôn ngữ sinh học của cơ thể, phục hồi nội tiết tự nhiên và đạt tới sự tự do, tự chủ sức khoẻ thật sự mà không phụ thuộc theo xu hướng hay thực phẩm chức năng.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-primary);">Liên hệ & Đồng hành</h4>
+          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="far fa-envelope" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Email: ngocanhnt.hormone@gmail.com</span>
+          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="fab fa-whatsapp" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Hotline: Zalo 0963289948</span>
+          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Đặt lịch: <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">YouCanBook.me</a></span>
+        </div>
+      </div>
+      <div class="footer-bottom" style="padding: 2rem 0; text-align: center;">
+        <p style="font-size: 0.85rem; color: var(--text-muted);">© 2026 F5 Hormone. All rights reserved.</p>
+        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem; opacity: 0.8; font-size: 0.85rem;">
+          <a href="../index.html" style="color: var(--text-muted); text-decoration: none;">Trang chủ</a>
+          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Kiến thức</a>
+          <a href="../chinh-sach-bao-mat.html" style="color: var(--text-muted); text-decoration: none;">Bảo mật</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CATS = { hormone:'Nội tiết & Hormone', nutrition:'Dinh dưỡng & TPCN', sleep:'Giấc ngủ', cycle:'Chu kỳ kinh nguyệt' };
+    const CAT_ICONS = { hormone:'🧬', nutrition:'🥦', sleep:'🌙', cycle:'🌀' };
+
+    let currentCat = '';
+
+    const postsData = [
+      {
+        id: 'beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc',
+        title: 'Béo phì thông tin nhưng suy dinh dưỡng trí thức',
+        excerpt: 'Chúng ta đang béo phì thông tin nhưng suy dinh dưỡng trí thức. Hãy cùng tìm hiểu 4 tầng cốt lõi để thực sự "tiêu hóa" kiến thức và chăm sóc sức khỏe từ gốc rễ.',
+        category: 'nutrition',
+        date: '2026-05-25',
+        url: 'posts/beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc.html'
+      },
+      {
+        id: 'an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet',
+        title: 'Ăn uống và chăm sóc cơ thể đồng điệu cùng 4 pha chu kỳ kinh nguyệt',
+        excerpt: 'Hiểu về chu kỳ sinh lý và cách ăn uống, vận động phù hợp theo 4 pha (mùa đông, xuân, hạ, thu) để sống đồng điệu cùng cơ thể phụ nữ.',
+        category: 'cycle',
+        date: '2026-05-25',
+        url: 'posts/an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet.html'
+      },
+      {
+        id: 'khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam',
+        title: 'Khi GH không phải là những gói thuốc bổ sung chiều cao của Nhật Bản được xách tay về Việt Nam',
+        excerpt: 'Nếu bạn muốn con cao lớn, nhất định đọc bài viết này.',
+        category: 'hormone',
+        date: '2026-05-25',
+        url: 'posts/khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam.html'
+      }
+    ];
+
+    function getPosts() {
+      return [...postsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    function renderBlog() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      let posts = getPosts();
+      if (currentCat) posts = posts.filter(p => p.category === currentCat);
+      if (search) posts = posts.filter(p => (p.title||'').toLowerCase().includes(search) || (p.excerpt||'').toLowerCase().includes(search));
+
+      const grid = document.getElementById('postsGrid');
+
+      if (posts.length === 0) {
+        grid.innerHTML = `<div class="posts-empty" style="text-align:center; padding: 4rem 2rem; color: var(--text-muted);"><i class="fas fa-search" style="font-size:3rem; opacity:0.2; margin-bottom:1rem; display:block;"></i><h3>Không tìm thấy bài viết</h3><p>Thử thay đổi từ khóa hoặc danh mục</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = posts.map(p => `
+        <article class="post-card">
+          <div class="post-card-img-placeholder">${CAT_ICONS[p.category] || '📝'}</div>
+          <div class="post-card-body">
+            <div class="post-meta">
+              <span class="post-cat">${CATS[p.category] || p.category}</span>
+              <span class="post-date">${formatDate(p.date)}</span>
+            </div>
+            <h2><a href="${p.url}">${p.title}</a></h2>
+            <p class="post-excerpt">${p.excerpt}</p>
+            <a href="${p.url}" class="post-read-more">Đọc bài viết <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderCategories() {
+      const posts = getPosts();
+      const catCounts = {};
+      posts.forEach(p => { catCounts[p.category] = (catCounts[p.category] || 0) + 1; });
+      const list = document.getElementById('categoryList');
+      list.innerHTML = Object.entries(catCounts).map(([cat, count]) => `
+        <li onclick="filterCat('${cat}')">
+          <span style="font-weight:500">${CAT_ICONS[cat]||''} ${CATS[cat]||cat}</span>
+          <span>${count}</span>
+        </li>
+      `).join('');
+    }
+
+    function filterCat(cat) {
+      currentCat = cat;
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.cat === cat);
+      });
+      renderBlog();
+    }
+
+    document.getElementById('filterTabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-tab');
+      if (!btn) return;
+      filterCat(btn.dataset.cat);
+    });
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      return new Date(dateStr).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric' });
+    }
+
+    renderBlog();
+    renderCategories();
+  </script>
+
+</body>
+</html>

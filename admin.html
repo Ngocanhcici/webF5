@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F5 Hormone - Trang Quản Trị Bài Viết</title>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Quill Rich Text Editor CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+  <style>
+    :root {
+      --wp-dark: #23282d;
+      --wp-dark-hover: #191e23;
+      --wp-blue: #007cba;
+      --wp-blue-hover: #005682;
+      --accent-terracotta: #B85C38;
+      --accent-terracotta-hover: #9E4A2A;
+      --border-light: #e2e4e7;
+      --bg-light: #f0f0f1;
+      --text-main: #3c434a;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* sidebar style - WordPress themed */
+    .wp-sidebar {
+      width: 240px;
+      background-color: var(--wp-dark);
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    .wp-brand {
+      padding: 1.5rem 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .wp-brand em {
+      color: var(--accent-terracotta);
+      font-style: italic;
+    }
+
+    .wp-menu {
+      list-style: none;
+      padding: 0.5rem 0;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .wp-menu-item a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      color: #c3c4c7;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .wp-menu-item a:hover {
+      background-color: rgba(255,255,255,0.05);
+      color: #00b4ff;
+    }
+
+    .wp-menu-item.active a {
+      background-color: rgba(255,255,255,0.08);
+      color: #fff;
+      border-left-color: var(--accent-terracotta);
+    }
+
+    /* Main Area style */
+    .wp-main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Bar */
+    .wp-topbar {
+      height: 60px;
+      background-color: #fff;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      flex-shrink: 0;
+    }
+
+    .wp-topbar-left h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .dir-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #fafaf9;
+      border: 1px solid var(--border-light);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #d63638;
+      display: inline-block;
+    }
+
+    .status-dot.connected {
+      background-color: #46b450;
+    }
+
+    .btn-action-wp {
+      background-color: var(--accent-terracotta);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-action-wp:hover {
+      background-color: var(--accent-terracotta-hover);
+    }
+
+    /* Inner view area */
+    .wp-view-pane {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    /* Standard WP Card Dashboard */
+    .wp-card {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    }
+
+    .wp-card-header {
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 1rem;
+    }
+
+    /* Grid for statistics */
+    .wp-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-terracotta);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #646970;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Table styles for Posts list */
+    .wp-table-container {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    }
+
+    .wp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .wp-table th {
+      background: #fafafa;
+      border-bottom: 2px solid var(--border-light);
+      padding: 1rem;
+      font-weight: 600;
+      color: #2c3338;
+    }
+
+    .wp-table td {
+      border-bottom: 1px solid var(--border-light);
+      padding: 1rem;
+      vertical-align: middle;
+    }
+
+    .wp-table tr:hover {
+      background-color: #f6f7f7;
+    }
+
+    .post-title-link {
+      font-weight: 600;
+      color: #2271b1;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .post-title-link:hover {
+      color: #135e96;
+    }
+
+    .post-actions-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.35rem;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .wp-table tr:hover .post-actions-row {
+      opacity: 1;
+    }
+
+    .action-edit {
+      color: #2271b1;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .action-edit:hover {
+      color: #135e96;
+    }
+
+    .action-delete {
+      color: #b32d2e;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .action-delete:hover {
+      color: #8d2424;
+    }
+
+    .badge-cat {
+      background-color: #e5f5fa;
+      color: #007cba;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .badge-cat.nutrition {
+      background-color: #efe;
+      color: #2e7d32;
+    }
+    .badge-cat.sleep {
+      background-color: #f3e5f5;
+      color: #7b1fa2;
+    }
+    .badge-cat.cycle {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    /* Editor screen layout - WordPress Gutenberg styled */
+    .wp-editor-container {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .wp-editor-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .input-wp-title {
+      width: 100%;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .input-wp-title:focus {
+      border-color: #007cba;
+      box-shadow: 0 0 0 1px #007cba;
+    }
+
+    /* Rich text editor wrapper */
+    .editor-visual-box {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      min-height: 450px;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    }
+    
+    .ql-container.ql-snow {
+      border: none !important;
+      flex-grow: 1;
+      font-size: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .ql-toolbar.ql-snow {
+      border: none !important;
+      border-bottom: 1px solid var(--border-light) !important;
+      background: #fafafa;
+    }
+
+    /* Sidebar Editor widgets */
+    .wp-sidebar-widget {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    }
+
+    .widget-header-wp {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .widget-body-wp {
+      padding: 1rem;
+    }
+
+    .sidebar-field-group {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-field-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .sidebar-field-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #646970;
+      margin-bottom: 0.35rem;
+    }
+
+    .sidebar-input {
+      width: 100%;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.45rem 0.65rem;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .sidebar-input:focus {
+      border-color: #007cba;
+    }
+
+    .sidebar-textarea {
+      width: 100%;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      font-size: 0.85rem;
+      resize: vertical;
+      outline: none;
+    }
+
+    .sidebar-textarea:focus {
+      border-color: #007cba;
+    }
+
+    /* Save widget buttons */
+    .btn-publish-wp {
+      background-color: var(--accent-terracotta);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-publish-wp:hover {
+      background-color: var(--accent-terracotta-hover);
+    }
+
+    .btn-preview-wp {
+      background-color: #f6f7f7;
+      color: #2271b1;
+      border: 1px solid #2271b1;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      width: 100%;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-preview-wp:hover {
+      background-color: #f0f6fa;
+    }
+
+    /* Preview Modal (Device simulation) */
+    .preview-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .preview-modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .preview-modal-topbar {
+      height: 50px;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      flex-shrink: 0;
+    }
+
+    .preview-modal-topbar h4 {
+      font-weight: 500;
+    }
+
+    .preview-device-switcher {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-device {
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .btn-device.active, .btn-device:hover {
+      color: #fff;
+    }
+
+    .preview-modal-viewport {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .preview-iframe-wrapper {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .preview-iframe-wrapper.desktop {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .preview-iframe-wrapper.tablet {
+      max-width: 768px;
+      max-height: 1024px;
+      border: 12px solid #222;
+      border-radius: 24px;
+    }
+
+    .preview-iframe-wrapper.mobile {
+      max-width: 375px;
+      max-height: 812px;
+      border: 12px solid #222;
+      border-radius: 36px;
+    }
+
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Fallback Manual Modal styling */
+    .wp-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .wp-modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .wp-modal {
+      background: #fff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 650px;
+      padding: 2rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .wp-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.75rem;
+    }
+
+    .wp-modal-header h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .code-snippet-box {
+      background: #23282d;
+      color: #eee;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 1.25rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      position: relative;
+      margin: 1rem 0;
+    }
+
+    .btn-copy-snippet {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.7rem;
+    }
+
+    .btn-copy-snippet:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Custom Toast Notification */
+    .wp-toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .wp-toast {
+      background: #2c3338;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-left: 4px solid var(--accent-terracotta);
+    }
+
+    .wp-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .wp-toast.success {
+      border-left-color: #46b450;
+    }
+
+    .wp-toast.error {
+      border-left-color: #d63638;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT: WP SIDEBAR -->
+  <aside class="wp-sidebar">
+    <a href="../index.html" class="wp-brand">
+      F5 <em>Hormone</em>
+    </a>
+    <ul class="wp-menu">
+      <li class="wp-menu-item active" id="menu-dashboard">
+        <a href="#" onclick="switchView('dashboard')">
+          <i class="fas fa-tachometer-alt"></i> Bảng tin
+        </a>
+      </li>
+      <li class="wp-menu-item" id="menu-posts">
+        <a href="#" onclick="switchView('posts')">
+          <i class="fas fa-edit"></i> Tất cả bài viết
+        </a>
+      </li>
+      <li class="wp-menu-item" id="menu-new-post">
+        <a href="#" onclick="switchView('new-post')">
+          <i class="fas fa-plus-circle"></i> Viết bài mới
+        </a>
+      </li>
+      <li class="wp-menu-item" id="menu-help">
+        <a href="#" onclick="switchView('help')">
+          <i class="fas fa-question-circle"></i> Hướng dẫn sử dụng
+        </a>
+      </li>
+    </ul>
+    <div style="padding: 1rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.75rem; text-align:center; color:#888;">
+      F5 Hormone v1.0.0
+    </div>
+  </aside>
+
+  <!-- RIGHT: MAIN WRAPPER -->
+  <div class="wp-main-content">
+    
+    <!-- Topbar -->
+    <header class="wp-topbar">
+      <div class="wp-topbar-left">
+        <h2 id="wp-page-title">Bảng tin quản trị</h2>
+      </div>
+      <div class="dir-status-bar">
+        <span id="wpStatusDot" class="status-dot"></span>
+        <span id="wpStatusText" style="font-weight: 500;">Thư mục dự án: Chưa kết nối</span>
+        <button id="wpBtnConnect" class="btn-action-wp" onclick="connectDirectory()">
+          <i class="fas fa-folder-open"></i> Kết nối thư mục
+        </button>
+      </div>
+    </header>
+
+    <!-- View Pane -->
+    <div class="wp-view-pane">
+      
+      <!-- SCREEN 1: DASHBOARD -->
+      <section id="view-dashboard">
+        <div class="wp-card" style="border-left: 4px solid var(--accent-terracotta);">
+          <h2 style="font-family:'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Chào mừng bạn đến với F5 Hormone CMS!</h2>
+          <p style="color: #646970; font-size:0.95rem; line-height: 1.5;">Giao diện quản trị CMS dạng WordPress dành cho F5 Hormone. Bạn có thể <strong>kết nối thư mục dự án</strong> để lưu trực tiếp, hoặc chạy <code>node start_admin.js</code> từ thư mục dự án để tự động đồng bộ hóa và lưu trữ bài viết mà không bị giới hạn bảo mật trình duyệt.</p>
+        </div>
+
+        <div class="wp-stats-grid">
+          <div class="stat-box">
+            <div>
+              <div class="stat-label">Tổng bài viết</div>
+              <div class="stat-number" id="stat-total-posts">0</div>
+            </div>
+            <div style="font-size:2.5rem; color:#d4c9bc;"><i class="fas fa-newspaper"></i></div>
+          </div>
+          <div class="stat-box">
+            <div>
+              <div class="stat-label">Dinh dưỡng & TPCN</div>
+              <div class="stat-number" id="stat-cat-nutrition">0</div>
+            </div>
+            <div style="font-size:2.5rem; color:#c8ebd4;"><i class="fas fa-carrot"></i></div>
+          </div>
+          <div class="stat-box">
+            <div>
+              <div class="stat-label">Nội tiết & Hormone</div>
+              <div class="stat-number" id="stat-cat-hormone">0</div>
+            </div>
+            <div style="font-size:2.5rem; color:#ebd5cc;"><i class="fas fa-dna"></i></div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+          <div class="wp-card">
+            <div class="wp-card-header">Hoạt động gần đây</div>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom: 1rem;">Nhấp vào "Tất cả bài viết" ở menu bên để quản lý hoặc chỉnh sửa.</p>
+            <div class="wp-table-container">
+              <table class="wp-table" id="dashboard-recent-table">
+                <thead>
+                  <tr>
+                    <th>Tiêu đề</th>
+                    <th>Danh mục</th>
+                    <th>Ngày đăng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="3" style="text-align:center; color:#888;">Hãy kết nối thư mục dự án để xem danh sách bài viết.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="wp-card">
+            <div class="wp-card-header">Lối tắt nhanh</div>
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+              <button class="btn-publish-wp" style="padding:0.75rem;" onclick="switchView('new-post')">
+                <i class="fas fa-plus"></i> Viết bài mới ngay
+              </button>
+              <button class="btn-preview-wp" style="padding:0.75rem;" onclick="window.open('index.html', '_blank')">
+                <i class="fas fa-external-link-alt"></i> Xem Trang chủ Kiến thức
+              </button>
+              <button class="btn-preview-wp" style="padding:0.75rem; border-color:#888; color:#333;" onclick="switchView('help')">
+                <i class="fas fa-book"></i> Đọc tài liệu hướng dẫn
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: ALL POSTS -->
+      <section id="view-posts" style="display:none">
+        <div class="wp-card" style="padding: 1rem 1.5rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+          <span style="font-size:0.9rem; color:#646970; font-weight:500;" id="wp-posts-count-label">Đang tải danh sách bài viết...</span>
+          <button class="btn-action-wp" onclick="switchView('new-post')"><i class="fas fa-plus"></i> Thêm bài viết mới</button>
+        </div>
+
+        <div class="wp-table-container">
+          <table class="wp-table" id="all-posts-table">
+            <thead>
+              <tr>
+                <th>Tiêu đề</th>
+                <th>Tác giả</th>
+                <th>Danh mục</th>
+                <th>Ngày đăng</th>
+                <th>Thời lượng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: EDITOR (NEW / EDIT) -->
+      <section id="view-editor" style="display:none">
+        <div class="wp-editor-container">
+          
+          <!-- Editor Main Col -->
+          <div class="wp-editor-main">
+            <input type="text" id="editorTitle" class="input-wp-title" placeholder="Thêm tiêu đề bài viết...">
+            
+            <div class="editor-visual-box">
+              <!-- Quill Visual Editor Container -->
+              <div id="editorQuill"></div>
+            </div>
+          </div>
+
+          <!-- Editor Sidebar Options Col -->
+          <div class="wp-editor-sidebar">
+            
+            <!-- Publish Widget -->
+            <div class="wp-sidebar-widget">
+              <div class="widget-header-wp">
+                <span>Đăng bài viết</span>
+                <i class="fas fa-bullseye" style="color:var(--accent-terracotta)"></i>
+              </div>
+              <div class="widget-body-wp">
+                <div class="sidebar-field-group">
+                  <span style="font-size:0.8rem; color:#646970;"><i class="far fa-eye"></i> Trạng thái: <strong>Mở công khai</strong></span>
+                </div>
+                <div class="sidebar-field-group">
+                  <span style="font-size:0.8rem; color:#646970;"><i class="far fa-user"></i> Tác giả: <strong>Ngọc Anh Coach</strong></span>
+                </div>
+                <hr style="border:none; border-top:1px solid var(--border-light); margin:0.75rem 0;">
+                
+                <button class="btn-preview-wp" onclick="openPreview()"><i class="far fa-eye"></i> Xem thử bài viết</button>
+                <button class="btn-publish-wp" onclick="publishPost()"><i class="fas fa-check-circle"></i> Đăng / Cập nhật</button>
+              </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="wp-sidebar-widget">
+              <div class="widget-header-wp">Danh mục</div>
+              <div class="widget-body-wp">
+                <select id="editorCategory" class="sidebar-input" style="height:auto; font-weight:500;">
+                  <option value="nutrition">🥦 Dinh dưỡng & TPCN</option>
+                  <option value="hormone">🧬 Nội tiết & Hormone</option>
+                  <option value="sleep">🌙 Giấc ngủ</option>
+                  <option value="cycle">🌀 Chu kỳ</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Excerpt Widget -->
+            <div class="wp-sidebar-widget">
+              <div class="widget-header-wp">Mô tả ngắn (Excerpt)</div>
+              <div class="widget-body-wp">
+                <textarea id="editorExcerpt" class="sidebar-textarea" rows="3" placeholder="Viết mô tả ngắn để hiển thị ngoài danh sách bài viết..."></textarea>
+              </div>
+            </div>
+
+            <!-- Document Details Widget -->
+            <div class="wp-sidebar-widget">
+              <div class="widget-header-wp">Thuộc tính bài viết</div>
+              <div class="widget-body-wp">
+                <div class="sidebar-field-group">
+                  <label for="editorSlug">Đường dẫn (Slug)</label>
+                  <input type="text" id="editorSlug" class="sidebar-input" placeholder="ten-bai-viet-slug" oninput="this.value = slugify(this.value)">
+                </div>
+                <div class="sidebar-field-group">
+                  <label for="editorDate">Ngày đăng bài</label>
+                  <input type="date" id="editorDate" class="sidebar-input">
+                </div>
+                <div class="sidebar-field-group">
+                  <label for="editorReadTime">Thời gian đọc (phút)</label>
+                  <input type="number" id="editorReadTime" class="sidebar-input" value="5" min="1">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SCREEN 4: HELP GUIDE -->
+      <section id="view-help" style="display:none">
+        <div class="wp-card">
+          <div class="wp-card-header" style="font-size:1.3rem;">Hướng dẫn quản lý & Đăng bài viết</div>
+          <div style="font-size:0.95rem; line-height: 1.6; display:flex; flex-direction:column; gap:1.25rem; color:#3c434a;">
+            <p><strong>F5 Hormone Admin Panel</strong> là trang CMS tĩnh cung cấp 2 phương thức tiện lợi để đăng, cập nhật bài viết mà không cần cấu hình cơ sở dữ liệu (Database) phức tạp:</p>
+            
+            <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-primary); border-left: 3px solid var(--accent-terracotta); padding-left: 0.5rem;">Cách 1: Tự động hoá qua Local Server (Khuyên dùng - Mọi trình duyệt)</h3>
+            <p style="margin-bottom:0.5rem;">Khi chạy bằng máy chủ cục bộ Node.js, bài viết và mảng danh mục được tự động lưu trực tiếp vào code mà không bị giới hạn bảo mật Sandbox của trình duyệt:</p>
+            <ol style="margin-left: 1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li>Mở ứng dụng <strong>Terminal</strong> trên máy Mac.</li>
+              <li>Chạy lệnh: <code>node start_admin.js</code> từ thư mục dự án. (Nếu chưa cài Node.js, hãy tải và cài đặt trong 1 phút tại <a href="https://nodejs.org/" target="_blank" style="color:var(--accent-terracotta); text-decoration:underline;">nodejs.org</a>).</li>
+              <li>Trình duyệt sẽ tự động mở trang quản trị tại: <code>http://localhost:3000/kien-thuc/admin.html</code>.</li>
+              <li>Khi bạn soạn thảo bài viết và bấm <strong>"Đăng / Cập nhật"</strong>, máy chủ sẽ tự động tạo file và ghi đè dữ liệu lên ổ cứng tức thì.</li>
+            </ol>
+
+            <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-primary); border-left: 3px solid var(--accent-terracotta); padding-left: 0.5rem;">Cách 2: Sử dụng File System Access API (Chỉ Chrome / Edge)</h3>
+            <p style="margin-bottom:0.5rem;">Nếu không dùng Server và chạy trực tiếp file bằng cách nhấp đúp (với URL dạng <code>file:///...</code>):</p>
+            <ol style="margin-left: 1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li>Mở file <code>admin.html</code> bằng trình duyệt <strong>Google Chrome</strong> hoặc <strong>Microsoft Edge</strong>.</li>
+              <li>Bấm nút <strong>"Kết nối thư mục"</strong> ở góc trên bên phải màn hình và cấp quyền Đọc/Ghi cho thư mục gốc của dự án.</li>
+              <li>Viết bài mới hoặc sửa bài viết, sau đó bấm <strong>"Đăng / Cập nhật"</strong> để lưu trực tiếp vào ổ cứng.</li>
+            </ol>
+
+            <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-primary); border-left: 3px solid var(--accent-terracotta); padding-left: 0.5rem;">Cách hoạt động của nút Xem trước (Preview):</h3>
+            <p>Khi soạn thảo, bạn có thể bấm nút **"Xem thử bài viết"** để mở khung mô phỏng trực quan. Hệ thống hỗ trợ xem trước bài viết trên 3 thiết bị: Máy tính (Desktop), Máy tính bảng (Tablet), và Điện thoại di động (Mobile) để đảm bảo nội dung hiển thị tối ưu nhất.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- DEVICE PREVIEW MODAL OVERLAY -->
+  <div class="preview-modal-overlay" id="previewModal">
+    <div class="preview-modal-topbar">
+      <h4>Xem trước bài viết F5 Hormone</h4>
+      <div class="preview-device-switcher">
+        <button class="btn-device active" onclick="switchPreviewDevice('desktop')" title="Desktop"><i class="fas fa-desktop"></i></button>
+        <button class="btn-device" onclick="switchPreviewDevice('tablet')" title="Tablet"><i class="fas fa-tablet-alt"></i></button>
+        <button class="btn-device" onclick="switchPreviewDevice('mobile')" title="Mobile"><i class="fas fa-mobile-alt"></i></button>
+      </div>
+      <button class="btn-action-wp" style="background:#444;" onclick="closePreview()">Đóng</button>
+    </div>
+    <div class="preview-modal-viewport">
+      <div class="preview-iframe-wrapper desktop" id="previewWrapper">
+        <iframe class="preview-iframe" id="previewIframe"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANUAL MODE FALLBACK MODAL -->
+  <div class="wp-modal-overlay" id="manualModal">
+    <div class="wp-modal">
+      <div class="wp-modal-header">
+        <h3>Xuất bản bài viết thủ công</h3>
+        <button class="btn-close-modal" onclick="closeManualModal()" style="font-size: 1.2rem; cursor:pointer; background:none; border:none;">&times;</button>
+      </div>
+      <p style="font-size: 0.9rem; color: #646970; margin-bottom: 1.25rem; line-height:1.5;">
+        Vì trình duyệt của bạn không hỗ trợ lưu tệp tự động hoặc quyền truy cập chưa được cấp, bạn hãy tải file và cập nhật danh sách bằng tay:
+      </p>
+
+      <p style="font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;"><i class="fas fa-download" style="color:var(--accent-terracotta)"></i> Bước 1: Tải file HTML</p>
+      <p style="font-size:0.85rem; color:#646970; margin-bottom:0.75rem; line-height:1.4;">Tải file dưới đây về máy và kéo thả nó vào thư mục <code>kien-thuc/posts/</code>.</p>
+      <button class="btn-action-wp" id="wpBtnDownload" style="margin-bottom: 1.5rem; padding: 0.6rem 1.2rem;">
+        <i class="fas fa-file-download"></i> Tải file <span id="wpDownloadName">post.html</span>
+      </button>
+
+      <p style="font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;"><i class="fas fa-code" style="color:var(--accent-terracotta)"></i> Bước 2: Dán mã JSON vào danh sách</p>
+      <p style="font-size:0.85rem; color:#646970; margin-bottom:0.5rem; line-height:1.4;">
+        Mở file <code>kien-thuc/index.html</code>, tìm cụm từ <code>const postsData = [</code> và dán đoạn mã sau lên đầu:
+      </p>
+
+      <div class="code-snippet-box">
+        <button class="btn-copy-snippet" onclick="copySnippet()"><i class="far fa-copy"></i> Copy</button>
+        <pre id="jsonSnippetCode"></pre>
+      </div>
+
+      <div style="text-align: right; margin-top: 1.5rem;">
+        <button class="btn-action-wp" onclick="closeManualModal()">Hoàn tất</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="wp-toast-container" id="wpToastContainer"></div>
+
+  <script>
+    // In-memory posts list
+    let postsData = [
+      {
+        id: 'beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc',
+        title: 'Béo phì thông tin nhưng suy dinh dưỡng trí thức',
+        excerpt: 'Chúng ta đang béo phì thông tin nhưng suy dinh dưỡng trí thức. Hãy cùng tìm hiểu 4 tầng cốt lõi để thực sự "tiêu hóa" kiến thức và chăm sóc sức khỏe từ gốc rễ.',
+        category: 'nutrition',
+        date: '2026-05-25',
+        url: 'posts/beo-phi-thong-tin-nhung-suy-dinh-duong-tri-thuc.html'
+      },
+      {
+        id: 'an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet',
+        title: 'Ăn uống và chăm sóc cơ thể đồng điệu cùng 4 pha chu kỳ kinh nguyệt',
+        excerpt: 'Hiểu về chu kỳ sinh lý và cách ăn uống, vận động phù hợp theo 4 pha (mùa đông, xuân, hạ, thu) để sống đồng điệu cùng cơ thể phụ nữ.',
+        category: 'cycle',
+        date: '2026-05-25',
+        url: 'posts/an-uong-va-cham-soc-co-the-dong-dieu-cung-4-pha-chu-ky-kinh-nguyet.html'
+      },
+      {
+        id: 'khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam',
+        title: 'Khi GH không phải là những gói thuốc bổ sung chiều cao của Nhật Bản được xách tay về Việt Nam',
+        excerpt: 'Nếu bạn muốn con cao lớn, nhất định đọc bài viết này.',
+        category: 'hormone',
+        date: '2026-05-25',
+        url: 'posts/khi-gh-khong-phai-la-nhung-goi-thuoc-bo-sung-chieu-cao-cua-nhat-ban-duoc-xach-tay-ve-viet-nam.html'
+      },
+      {
+        id: 'ten-bai-moi',
+        title: 'Tiêu đề bài mới',
+        excerpt: 'Mô tả ngắn bài mới.',
+        category: 'hormone',
+        date: '2026-05-25',
+        url: 'posts/ten-bai-moi.html'
+      }
+    ];
+
+    let dirHandle = null;
+    let isServerActive = false;
+    let editingPostSlug = null; // null if writing new post, holds slug if editing
+    let quill = null;
+
+    // Initialize Rich Editor
+    document.addEventListener('DOMContentLoaded', () => {
+      quill = new Quill('#editorQuill', {
+        theme: 'snow',
+        placeholder: 'Bắt đầu viết câu chuyện, kiến thức của bạn tại đây...',
+        modules: {
+          toolbar: [
+            [{ 'header': [2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['blockquote', 'link'],
+            ['clean']
+          ]
+        }
+      });
+
+      // Auto slugify when title changes in editor
+      document.getElementById('editorTitle').addEventListener('input', (e) => {
+        if (!editingPostSlug) {
+          document.getElementById('editorSlug').value = slugify(e.target.value);
+        }
+      });
+
+      // Set default date
+      document.getElementById('editorDate').value = new Date().toISOString().split('T')[0];
+
+      // Check server API connection
+      checkServerConnection();
+
+      // Initial renders
+      updateDashboardStats();
+      renderAllPosts();
+    });
+
+    async function checkServerConnection() {
+      if (window.location.protocol.startsWith('http')) {
+        try {
+          const res = await fetch('/api/check');
+          const data = await res.json();
+          if (data && data.status === 'ok') {
+            isServerActive = true;
+            document.getElementById('wpStatusDot').className = 'status-dot connected';
+            document.getElementById('wpStatusText').textContent = 'Đã kết nối: Local Server API';
+            document.getElementById('wpBtnConnect').style.display = 'none'; // Hide directory connect button
+            showToast('Đã tự động kết nối qua máy chủ quản trị!', 'success');
+          }
+        } catch (e) {
+          console.log('Not running via start_admin.js server, falling back to browser folder connection.');
+        }
+      }
+    }
+
+    // Sidebar navigation toggles
+    function switchView(viewName) {
+      document.querySelectorAll('.wp-sidebar .wp-menu-item').forEach(li => li.classList.remove('active'));
+      document.getElementById('view-dashboard').style.display = 'none';
+      document.getElementById('view-posts').style.display = 'none';
+      document.getElementById('view-editor').style.display = 'none';
+      document.getElementById('view-help').style.display = 'none';
+
+      if (viewName === 'dashboard') {
+        document.getElementById('view-dashboard').style.display = 'block';
+        document.getElementById('menu-dashboard').classList.add('active');
+        document.getElementById('wp-page-title').textContent = 'Bảng tin quản trị';
+        updateDashboardStats();
+      } else if (viewName === 'posts') {
+        document.getElementById('view-posts').style.display = 'block';
+        document.getElementById('menu-posts').classList.add('active');
+        document.getElementById('wp-page-title').textContent = 'Tất cả bài viết';
+        renderAllPosts();
+      } else if (viewName === 'new-post') {
+        document.getElementById('view-editor').style.display = 'block';
+        document.getElementById('menu-new-post').classList.add('active');
+        document.getElementById('wp-page-title').textContent = 'Viết bài mới';
+        resetEditorForm();
+      } else if (viewName === 'help') {
+        document.getElementById('view-help').style.display = 'block';
+        document.getElementById('menu-help').classList.add('active');
+        document.getElementById('wp-page-title').textContent = 'Hướng dẫn sử dụng';
+      }
+    }
+
+    // Slugify helper
+    function slugify(text) {
+      return text.toString().toLowerCase()
+        .replace(/á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g, 'a')
+        .replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/g, 'e')
+        .replace(/i|í|ì|ỉ|ĩ|ị/g, 'i')
+        .replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g, 'o')
+        .replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/g, 'u')
+        .replace(/ý|ỳ|ỷ|ỹ|ỵ/g, 'y')
+        .replace(/đ/g, 'd')
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+    }
+
+    // Connect to Directory using File System Access API
+    async function connectDirectory() {
+      try {
+        dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        
+        // Simple file checks
+        let hasIndexHtml = false;
+        let hasKienThucDir = false;
+        for await (const entry of dirHandle.values()) {
+          if (entry.name === 'index.html' && entry.kind === 'file') hasIndexHtml = true;
+          if (entry.name === 'kien-thuc' && entry.kind === 'directory') hasKienThucDir = true;
+        }
+
+        if (!hasIndexHtml || !hasKienThucDir) {
+          showToast('Thư mục được chọn không phải thư mục dự án F5 Hormone gốc.', 'error');
+        }
+
+        document.getElementById('wpStatusDot').className = 'status-dot connected';
+        document.getElementById('wpStatusText').textContent = `Đã kết nối: ${dirHandle.name}`;
+        document.getElementById('wpBtnConnect').innerHTML = '<i class="fas fa-sync"></i> Đổi thư mục';
+        
+        showToast('Kết nối dự án thành công!', 'success');
+        
+        // Load data from file on disk
+        await loadPostsFromIndexHtml();
+      } catch (err) {
+        console.error(err);
+        if (err.name !== 'AbortError') {
+          showToast('Trình duyệt không hỗ trợ File API hoặc bạn đã từ chối cấp quyền.', 'error');
+        }
+      }
+    }
+
+    // Read postsData array from kien-thuc/index.html
+    async function loadPostsFromIndexHtml() {
+      if (!dirHandle) return;
+      try {
+        const kienThucDir = await dirHandle.getDirectoryHandle('kien-thuc');
+        const indexFileHandle = await kienThucDir.getFileHandle('index.html');
+        const indexFile = await indexFileHandle.getFile();
+        const indexText = await indexFile.text();
+
+        const targetStr = 'const postsData = [';
+        const startIdx = indexText.indexOf(targetStr);
+        if (startIdx !== -1) {
+          const arrStartIdx = startIdx + targetStr.length - 1; // pointing to '['
+          let depth = 0;
+          let endIdx = -1;
+          for (let i = arrStartIdx; i < indexText.length; i++) {
+            if (indexText[i] === '[') depth++;
+            else if (indexText[i] === ']') {
+              depth--;
+              if (depth === 0) {
+                endIdx = i;
+                break;
+              }
+            }
+          }
+          if (endIdx !== -1) {
+            const arrStr = indexText.substring(arrStartIdx, endIdx + 1);
+            // Safe evaluation of the array expression inside index.html
+            const parsedArray = eval(arrStr);
+            if (Array.isArray(parsedArray)) {
+              postsData = parsedArray;
+              updateDashboardStats();
+              renderAllPosts();
+              showToast('Đã tải danh sách bài viết từ ổ đĩa.', 'success');
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error loading posts array:', err);
+        showToast('Không đọc được danh sách bài viết từ index.html', 'error');
+      }
+    }
+
+    // Save updated postsData array to kien-thuc/index.html
+    async function savePostsToIndexHtml() {
+      if (!dirHandle) return;
+      try {
+        const kienThucDir = await dirHandle.getDirectoryHandle('kien-thuc');
+        const indexFileHandle = await kienThucDir.getFileHandle('index.html');
+        const indexFile = await indexFileHandle.getFile();
+        let indexText = await indexFile.text();
+
+        const targetStr = 'const postsData = [';
+        const startIdx = indexText.indexOf(targetStr);
+        if (startIdx !== -1) {
+          const arrStartIdx = startIdx + targetStr.length - 1; // pointing to '['
+          let depth = 0;
+          let endIdx = -1;
+          for (let i = arrStartIdx; i < indexText.length; i++) {
+            if (indexText[i] === '[') depth++;
+            else if (indexText[i] === ']') {
+              depth--;
+              if (depth === 0) {
+                endIdx = i;
+                break;
+              }
+            }
+          }
+          if (endIdx !== -1) {
+            // Prettify the postsData array back to string
+            const newArrStr = '[\n' + postsData.map(p => `      {
+        id: '${p.id}',
+        title: '${p.title.replace(/'/g, "\\'")}',
+        excerpt: '${p.excerpt.replace(/'/g, "\\'")}',
+        category: '${p.category}',
+        date: '${p.date}',
+        url: 'posts/${p.id}.html'
+      }`).join(',\n') + '\n    ]';
+
+            indexText = indexText.substring(0, arrStartIdx) + newArrStr + indexText.substring(endIdx + 1);
+            
+            const writable = await indexFileHandle.createWritable();
+            await writable.write(indexText);
+            await writable.close();
+          }
+        }
+      } catch (err) {
+        console.error('Error writing posts array:', err);
+        showToast('Lỗi khi ghi đè mảng postsData vào kien-thuc/index.html', 'error');
+      }
+    }
+
+    // Update Dashboard Stats card values
+    function updateDashboardStats() {
+      document.getElementById('stat-total-posts').textContent = postsData.length;
+      document.getElementById('stat-cat-nutrition').textContent = postsData.filter(p => p.category === 'nutrition').length;
+      document.getElementById('stat-cat-hormone').textContent = postsData.filter(p => p.category === 'hormone').length;
+
+      // Update Dashboard Recent Table
+      const recentTable = document.getElementById('dashboard-recent-table').querySelector('tbody');
+      const sorted = [...postsData].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+      
+      if (sorted.length === 0) {
+        recentTable.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#888;">Chưa có bài viết nào.</td></tr>`;
+        return;
+      }
+
+      recentTable.innerHTML = sorted.map(p => `
+        <tr>
+          <td><a href="#" class="post-title-link" onclick="editPost('${p.id}'); return false;">${p.title}</a></td>
+          <td><span class="badge-cat ${p.category}">${CATS[p.category] || p.category}</span></td>
+          <td>${p.date ? p.date.split('-').reverse().join('/') : ''}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Render all posts in main table
+    function renderAllPosts() {
+      const tbody = document.getElementById('all-posts-table').querySelector('tbody');
+      document.getElementById('wp-posts-count-label').textContent = `${postsData.length} bài viết đã xuất bản`;
+      
+      if (postsData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#888; padding: 2rem;">Không có bài viết nào trong danh sách.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = postsData.map(p => `
+        <tr>
+          <td>
+            <a href="#" class="post-title-link" onclick="editPost('${p.id}'); return false;">${p.title}</a>
+            <div class="post-actions-row">
+              <span class="action-edit" onclick="editPost('${p.id}')">Sửa</span> | 
+              <span class="action-delete" onclick="deletePost('${p.id}')">Xóa</span>
+            </div>
+          </td>
+          <td style="color:#646970;">Ngọc Anh Coach</td>
+          <td><span class="badge-cat ${p.category}">${CATS[p.category] || p.category}</span></td>
+          <td style="color:#646970;">${p.date ? p.date.split('-').reverse().join('/') : ''}</td>
+          <td style="color:#646970;">${p.readTime || 5} phút đọc</td>
+        </tr>
+      `).join('');
+    }
+
+    // Reset editor inputs
+    function resetEditorForm() {
+      editingPostSlug = null;
+      document.getElementById('editorTitle').value = '';
+      quill.root.innerHTML = '';
+      document.getElementById('editorCategory').value = 'hormone';
+      document.getElementById('editorExcerpt').value = '';
+      document.getElementById('editorSlug').value = '';
+      document.getElementById('editorDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('editorReadTime').value = '5';
+    }
+
+    // Edit Post trigger (Loads HTML content from disk/memory)
+    async function editPost(slug) {
+      const post = postsData.find(p => p.id === slug);
+      if (!post) return;
+
+      switchView('new-post'); // opens editor view
+      
+      editingPostSlug = slug;
+      document.getElementById('wp-page-title').textContent = 'Chỉnh sửa bài viết';
+      
+      document.getElementById('editorTitle').value = post.title;
+      document.getElementById('editorCategory').value = post.category;
+      document.getElementById('editorExcerpt').value = post.excerpt;
+      document.getElementById('editorSlug').value = post.id;
+      document.getElementById('editorDate').value = post.date;
+      document.getElementById('editorReadTime').value = post.readTime || '5';
+
+      // Load file content
+      if (isServerActive) {
+        try {
+          const res = await fetch(`posts/${slug}.html`);
+          const text = await res.text();
+
+          // Parse rich content out of generated HTML file template
+          const startTag = '<article class="post-rich-text">';
+          const startIdx = text.indexOf(startTag);
+          const endIdx = text.indexOf('</article>');
+          if (startIdx !== -1 && endIdx !== -1) {
+            let coreHtml = text.substring(startIdx + startTag.length, endIdx).trim();
+            // remove navigation back-link
+            const backLinkTag = 'Quay lại trang Kiến thức</a>';
+            const backIdx = coreHtml.indexOf(backLinkTag);
+            if (backIdx !== -1) {
+              coreHtml = coreHtml.substring(backIdx + backLinkTag.length).trim();
+            }
+            quill.root.innerHTML = coreHtml;
+            showToast('Đã tải nội dung bài viết từ Local Server.', 'success');
+          } else {
+            quill.root.innerHTML = '<p>Không thể bóc tách nội dung HTML bài viết.</p>';
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Lỗi khi đọc tệp tin bài viết từ server.', 'error');
+        }
+      } else if (dirHandle) {
+        try {
+          const kienThucDir = await dirHandle.getDirectoryHandle('kien-thuc');
+          const postsDir = await kienThucDir.getDirectoryHandle('posts');
+          const fileHandle = await postsDir.getFileHandle(`${slug}.html`);
+          const file = await fileHandle.getFile();
+          const text = await file.text();
+
+          // Parse rich content out of generated HTML file template
+          const startTag = '<article class="post-rich-text">';
+          const startIdx = text.indexOf(startTag);
+          const endIdx = text.indexOf('</article>');
+          if (startIdx !== -1 && endIdx !== -1) {
+            let coreHtml = text.substring(startIdx + startTag.length, endIdx).trim();
+            // remove navigation back-link
+            const backLinkTag = 'Quay lại trang Kiến thức</a>';
+            const backIdx = coreHtml.indexOf(backLinkTag);
+            if (backIdx !== -1) {
+              coreHtml = coreHtml.substring(backIdx + backLinkTag.length).trim();
+            }
+            quill.root.innerHTML = coreHtml;
+            showToast('Đã tải nội dung bài viết từ ổ đĩa.', 'success');
+          } else {
+            quill.root.innerHTML = '<p>Không thể bóc tách nội dung HTML bài viết.</p>';
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Lỗi khi đọc tệp tin bài viết từ ổ đĩa.', 'error');
+        }
+      } else {
+        quill.root.innerHTML = '<p>Hãy kết nối thư mục dự án để chỉnh sửa trực tiếp nội dung bài viết này.</p>';
+        showToast('Kết nối thư mục dự án để chỉnh sửa bài viết.', 'error');
+      }
+    }
+
+    // Delete post from index.html postsData and posts/[slug].html file
+    async function deletePost(slug) {
+      if (!confirm(`Bạn có chắc chắn muốn xóa bài viết "${slug}" không? Thao tác này sẽ xóa tệp tin posts/${slug}.html và loại bỏ bài viết khỏi danh mục.`)) {
+        return;
+      }
+
+      // Filter array
+      postsData = postsData.filter(p => p.id !== slug);
+
+      if (isServerActive) {
+        try {
+          const response = await fetch('/api/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug, postsData })
+          });
+          const resData = await response.json();
+          if (resData.success) {
+            showToast('Đã xóa bài viết thành công!', 'success');
+            renderAllPosts();
+            updateDashboardStats();
+          } else {
+            throw new Error(resData.error || 'Server error');
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Xảy ra lỗi khi xóa bài viết qua server.', 'error');
+        }
+      } else if (dirHandle) {
+        try {
+          const kienThucDir = await dirHandle.getDirectoryHandle('kien-thuc');
+          const postsDir = await kienThucDir.getDirectoryHandle('posts');
+          
+          // Delete file
+          await postsDir.removeEntry(`${slug}.html`);
+          
+          // Save updated list
+          await savePostsToIndexHtml();
+          
+          showToast('Đã xóa bài viết thành công!', 'success');
+          renderAllPosts();
+          updateDashboardStats();
+        } catch (err) {
+          console.error(err);
+          showToast('Xảy ra lỗi khi xóa bài viết.', 'error');
+        }
+      } else {
+        showToast('Hãy kết nối thư mục dự án để xóa tệp tin trên máy tính.', 'error');
+      }
+    }
+
+    // Generate fully layout-styled HTML post
+    function buildPostHtml(title, category, dateStr, readTime, excerpt, contentHtml) {
+      const catLabel = CATS[category] || category;
+      const formattedDate = dateStr ? new Date(dateStr).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric' }) : '';
+      
+      return `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title} | F5 Hormone</title>
+  <meta name="description" content="${excerpt.replace(/"/g, '&quot;')}"/>
+  <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../../conan-style.css">
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <nav class="navbar scrolled">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="logo">F5 <em>Hormone</em></a>
+      <div class="nav-links">
+        <a href="../../index.html#about">Phương pháp</a>
+        <a href="../../index.html#story">Câu chuyện</a>
+        <a href="../../index.html#philosophy">Triết lý</a>
+        <a href="../../index.html#levels">Lộ trình</a>
+        <a href="../index.html" class="active">Kiến thức</a>
+        <a href="../../index.html#programs">Chương trình</a>
+        <a href="../../index.html#reviews">Đánh giá</a>
+        <a href="../../index.html#faq">Hỏi đáp</a>
+        <a href="../../index.html#quiz" class="btn-nav">Làm Hormone Quiz →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Post Header -->
+  <header class="post-header">
+    <div class="container" style="max-width: 800px;">
+      <span class="section-label">${catLabel}</span>
+      <h1 style="font-size: 2.5rem; line-height: 1.3;">${title}</h1>
+      
+      <div class="post-meta-wrap">
+        <span><i class="far fa-calendar"></i> ${formattedDate}</span>
+        <span><i class="far fa-clock"></i> ${readTime} phút đọc</span>
+        <span><i class="far fa-user"></i> Ngọc Anh Coach</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <section class="post-content-sec">
+    <div class="container post-container">
+      <article class="post-rich-text">
+        <a href="../index.html" class="back-link" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; font-weight:700; color:var(--accent-terracotta); margin-bottom: 2rem;"><i class="fas fa-arrow-left"></i> Quay lại trang Kiến thức</a>
+        
+        ${contentHtml}
+      </article>
+
+      <!-- Post Footer / Call to action -->
+      <div class="post-footer-box">
+        <h3>Bạn muốn thiết lập lộ trình sức khoẻ cá nhân hoá?</h3>
+        <p>
+          Hãy bắt đầu bằng việc làm Hormone Quiz để xác định trục mất cân bằng chính của cơ thể, hoặc đặt lịch tham vấn 1-1 trực tiếp cùng Ngọc Anh Coach.
+        </p>
+        <div class="post-footer-ctas">
+          <a href="../../index.html#quiz" class="btn-primary" style="text-decoration:none; border-radius:50px; padding: 0.8rem 1.6rem;">Làm Hormone Quiz</a>
+          <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" rel="noopener" class="btn-ghost" style="text-decoration:none; border-radius:50px; padding: 0.8rem 1.6rem; border: 1.5px solid var(--border-light); color: var(--text-muted);">Đặt Lịch Tư Vấn</a>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; text-align: center;">
+        <a href="../index.html" class="btn-ghost" style="text-decoration:none; border-radius:50px; padding: 0.6rem 1.4rem; border: 1px solid var(--border-light); color: var(--text-muted); display:inline-block;"><i class="fas fa-chevron-left" style="margin-right:0.5rem"></i> Quay lại trang Kiến thức</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; padding: 4rem 0; border-bottom: 1px solid var(--border-light); text-align: left;">
+        <div>
+          <a href="../../index.html" class="logo" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none;">F5 <em>Hormone</em></a>
+          <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Học cách thấu hiểu ngôn ngữ sinh học của cơ thể, phục hồi nội tiết tự nhiên và đạt tới sự tự do, tự chủ sức khoẻ thật sự mà không phụ thuộc theo xu hướng hay thực phẩm chức năng.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-primary);">Liên hệ & Đồng hành</h4>
+          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="far fa-envelope" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Email: ngocanhnt.hormone@gmail.com</span>
+          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="fab fa-whatsapp" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Hotline: Zalo 0963289948</span>
+          <span style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--accent-terracotta);"></i> Đặt lịch: <a href="https://huyenluu-functionalhealthadvisor.youcanbook.me/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">YouCanBook.me</a></span>
+        </div>
+      </div>
+      <div class="footer-bottom" style="padding: 2rem 0; text-align: center;">
+        <p style="font-size: 0.85rem; color: var(--text-muted);">© 2026 F5 Hormone. All rights reserved.</p>
+        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem; opacity: 0.8; font-size: 0.85rem;">
+          <a href="../../index.html" style="color: var(--text-muted); text-decoration: none;">Trang chủ</a>
+          <a href="../index.html" style="color: var(--text-muted); text-decoration: none;">Kiến thức</a>
+          <a href="../../chinh-sach-bao-mat.html" style="color: var(--text-muted); text-decoration: none;">Bảo mật</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
+`;
+    }
+
+    // Publish / Save post
+    async function publishPost() {
+      const title = document.getElementById('editorTitle').value.trim();
+      const category = document.getElementById('editorCategory').value;
+      const excerpt = document.getElementById('editorExcerpt').value.trim();
+      const slug = document.getElementById('editorSlug').value.trim();
+      const dateStr = document.getElementById('editorDate').value;
+      const readTime = document.getElementById('editorReadTime').value;
+      const content = quill.getSemanticHTML().trim(); // Quill's structured content
+
+      if (!title || !slug || !excerpt || !content) {
+        showToast('Vui lòng điền tiêu đề, slug, mô tả và nội dung bài viết.', 'error');
+        return;
+      }
+
+      const generatedHtml = buildPostHtml(title, category, dateStr, readTime, excerpt, content);
+      
+      const postObj = {
+        id: slug,
+        title: title,
+        excerpt: excerpt,
+        category: category,
+        date: dateStr,
+        readTime: parseInt(readTime, 10),
+        url: `posts/${slug}.html`
+      };
+
+      if (isServerActive) {
+        try {
+          // If editing a post and slug changed, remove the old file and object
+          let oldSlug = null;
+          if (editingPostSlug && editingPostSlug !== slug) {
+            oldSlug = editingPostSlug;
+            postsData = postsData.filter(p => p.id !== editingPostSlug);
+          }
+
+          // Add or replace in postsData array
+          const idx = postsData.findIndex(p => p.id === (editingPostSlug || slug));
+          if (idx !== -1) {
+            postsData[idx] = postObj;
+          } else {
+            postsData.unshift(postObj);
+          }
+
+          // Send save command to Server
+          const response = await fetch('/api/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug, htmlContent: generatedHtml, postsData })
+          });
+          const resData = await response.json();
+          if (resData.success) {
+            if (oldSlug) {
+              // Delete old slug via API too
+              await fetch('/api/delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ slug: oldSlug, postsData })
+              });
+            }
+            showToast('Đã lưu bài viết và cập nhật thành công!', 'success');
+            resetEditorForm();
+            switchView('posts');
+          } else {
+            throw new Error(resData.error || 'Server error');
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Đã xảy ra lỗi khi lưu bài viết qua server. Mở xuất bản thủ công...', 'error');
+          openManualModal(slug, postObj, generatedHtml);
+        }
+      } else if (dirHandle) {
+        try {
+          const kienThucDir = await dirHandle.getDirectoryHandle('kien-thuc');
+          const postsDir = await kienThucDir.getDirectoryHandle('posts', { create: true });
+          
+          // Write article file
+          const fileHandle = await postsDir.getFileHandle(`${slug}.html`, { create: true });
+          const writable = await fileHandle.createWritable();
+          await writable.write(generatedHtml);
+          await writable.close();
+
+          // If editing a post and slug changed, remove the old file
+          if (editingPostSlug && editingPostSlug !== slug) {
+            try {
+              await postsDir.removeEntry(`${editingPostSlug}.html`);
+            } catch (e) {
+              console.error('Could not remove old file:', e);
+            }
+            // Remove old object from array
+            postsData = postsData.filter(p => p.id !== editingPostSlug);
+          }
+
+          // Add or replace in postsData array
+          const idx = postsData.findIndex(p => p.id === (editingPostSlug || slug));
+          if (idx !== -1) {
+            postsData[idx] = postObj;
+          } else {
+            // prepend new post
+            postsData.unshift(postObj);
+          }
+
+          // Save index.html
+          await savePostsToIndexHtml();
+
+          showToast('Đã lưu bài viết và cập nhật ổ đĩa thành công!', 'success');
+          
+          // Reset and back to posts list
+          resetEditorForm();
+          switchView('posts');
+        } catch (err) {
+          console.error(err);
+          showToast('Đã xảy ra lỗi khi ghi tệp tin. Đang mở xuất bản thủ công...', 'error');
+          openManualModal(slug, postObj, generatedHtml);
+        }
+      } else {
+        openManualModal(slug, postObj, generatedHtml);
+      }
+    }
+
+    // Modal manual fallback methods
+    function openManualModal(slug, postObj, htmlContent) {
+      document.getElementById('wpDownloadName').textContent = `${slug}.html`;
+      
+      const downloadBtn = document.getElementById('wpBtnDownload');
+      downloadBtn.onclick = () => {
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${slug}.html`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Tải xuống file bài viết thành công!', 'success');
+      };
+
+      const snippet = `      {
+        id: '${slug}',
+        title: '${postObj.title.replace(/'/g, "\\'")}',
+        excerpt: '${postObj.excerpt.replace(/'/g, "\\'")}',
+        category: '${postObj.category}',
+        date: '${postObj.date}',
+        url: 'posts/${slug}.html'
+      },`;
+      
+      document.getElementById('jsonSnippetCode').textContent = snippet;
+      document.getElementById('manualModal').classList.add('open');
+    }
+
+    function closeManualModal() {
+      document.getElementById('manualModal').classList.remove('open');
+    }
+
+    function copySnippet() {
+      const code = document.getElementById('jsonSnippetCode').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('Đã copy đoạn mã JSON bài viết!', 'success');
+      }).catch(err => {
+        showToast('Vui lòng bôi đen đoạn mã để copy thủ công.', 'error');
+      });
+    }
+
+    // Device simulator preview dialog
+    function openPreview() {
+      const title = document.getElementById('editorTitle').value.trim() || 'Xem trước bài viết';
+      const category = document.getElementById('editorCategory').value;
+      const dateStr = document.getElementById('editorDate').value;
+      const readTime = document.getElementById('editorReadTime').value;
+      const excerpt = document.getElementById('editorExcerpt').value.trim() || 'Mô tả ngắn...';
+      const content = quill.getSemanticHTML().trim() || '<p>Nội dung bài viết...</p>';
+
+      const previewHtml = buildPostHtml(title, category, dateStr, readTime, excerpt, content);
+      
+      // Inject CSS path adjustment for preview rendering inside iframe
+      // Since preview runs in kien-thuc/admin.html, style is at ../conan-style.css
+      // Let's replace the stylesheet path inside the generated html to allow local iframe to load CSS properly
+      const adjustedHtml = previewHtml.replace('../../conan-style.css', '../conan-style.css');
+
+      const iframe = document.getElementById('previewIframe');
+      
+      document.getElementById('previewModal').classList.add('open');
+      
+      // Write html into iframe
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(adjustedHtml);
+      doc.close();
+    }
+
+    function closePreview() {
+      document.getElementById('previewModal').classList.remove('open');
+    }
+
+    function switchPreviewDevice(device) {
+      document.querySelectorAll('.preview-device-switcher .btn-device').forEach(btn => {
+        btn.classList.toggle('active', btn.outerHTML.includes(device));
+      });
+
+      const wrapper = document.getElementById('previewWrapper');
+      wrapper.className = `preview-iframe-wrapper ${device}`;
+    }
+
+    // Toast alerts helper
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('wpToastContainer');
+      const toast = document.createElement('div');
+      toast.className = `wp-toast ${type}`;
+      toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> <span>${msg}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
